@@ -9,8 +9,6 @@ require_once("class.GamesManager.php");
 require_once("class.TournamentDatabase.php");
 require_once("class.UserManager.php");
 
-require_once("../tourney/index.php");
-
 class TourneyManager extends DataManager
 {
 	public $GameClasses = array(
@@ -36,7 +34,7 @@ class TourneyManager extends DataManager
 	}
 	
 	public function TourneyManager($host, $user, $pass, $db)			
-	{
+	{		
 		$this->errorCallback = array($this, "SqlException");
 		parent::__construct($host, $user, $pass, $db);
 		
@@ -119,11 +117,21 @@ class TourneyManager extends DataManager
 	
 	public function __destruct()
 	{
-		$this->tourneyTable->__destruct();
-		$this->gamesManager->__destruct();
-		$this->teamMan->__destruct();
-		$this->seedMan->__destruct();
-		$this->gameTypesManager->__destruct();
+		if($this->tourneyTable != null)
+			$this->tourneyTable->__destruct();
+		
+		if($this->gamesManager != null)
+			$this->gamesManager->__destruct();
+		
+		if($this->teamMan != null)
+			$this->teamMan->__destruct();
+		
+		if($this->seedMan != null)
+			$this->seedMan->__destruct();
+		
+		if($this->gameTypesManager != null)
+			$this->gameTypesManager->__destruct();
+		
 		exit();
 	}
 }

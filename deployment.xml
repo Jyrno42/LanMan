@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<package xmlns="http://www.zend.com/server/deployment-descriptor/1.0" version="1.0">
+    <name>LanManager</name>
+    <description>A tournament/bracket engine for leagues, developed for TTÜ eSports LAN-Party managment.</description>
+    <version>
+        <release>0.3</release>
+    </version>
+    <appdir>data</appdir>
+    <scriptsdir>scripts</scriptsdir>
+    <dependencies>
+    <required>
+      <extension>
+        <name>mysqli</name>
+        <min>0</min>
+      </extension>
+    </required>
+  </dependencies>
+    <parameters>
+    <parameter display="Database host" id="DB_Host" readonly="false" required="true" type="string">
+      <defaultvalue>localhost</defaultvalue>
+    </parameter>
+    <parameter display="Database name" id="DB_Name" readonly="false" required="true" type="string">
+      <defaultvalue>lanman</defaultvalue>
+    </parameter>
+    <parameter display="Database username" id="DB_USERNAME" readonly="false" required="true" type="string"/>
+    <parameter display="Database password" id="DB_PASSWORD" readonly="false" required="false" type="string"/>
+    <parameter display="Administrator user email." id="ADMIN_EMAIL" readonly="false" required="true" type="string">
+      <defaultvalue>jyrno42@gmail.com</defaultvalue>
+    </parameter>
+    <parameter display="Site name" id="SITE_NAME" readonly="false" required="true" type="string">
+      <defaultvalue>LanMan</defaultvalue>
+    </parameter>
+    <parameter display="Site host" id="SITE_HOST" readonly="false" required="true" type="string">
+      <defaultvalue>http://jyrno42.my.phpcloud.com/LanManager/</defaultvalue>
+    </parameter>
+  </parameters>
+    </package>

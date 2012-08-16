@@ -1,3 +1,6 @@
-#Mon Aug 06 04:09:36 EEST 2012
+LaunchURL=http\://server/folder
+Save\ Mode=ON_SAVE
+SelectedHostGUID=93dc6a07-eee1-401a-a6f9-93529f000398
+UploadFolder=.apps/http/__default__/0/LanManager/0.3
 eclipse.preferences.version=1
-isRemoteProjectEnabled=false
+isRemoteProjectEnabled=true

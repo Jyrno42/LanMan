@@ -63,7 +63,7 @@
 	</div>
 	
 	<div id="footer">
-		<p>Tournament bracket engine by FOX</b>
+		<p>LanMan v{$DeployConfig->Release} Tournament bracket engine by FOX</b>
 	</div>
 
 </div>

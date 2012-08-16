@@ -1,5 +1,26 @@
 <?php
 
+require_once("config/config.php");
+
+$LanMan = null;
+try 
+{
+	$LanMan = new BootStrap();
+	$LanMan->Strap();
+
+	// Page Logic here...
+}
+catch(Exception $e)
+{
+	$LanMan->Smarty->assign("error", $e);
+	$LanMan->Smarty->display("error.tpl");
+}
+
+if($LanMan != null)
+	$LanMan->Detach();
+
+die("");
+
 // TODO: Deleting team => deletes players! NOPE: Players should be linked to teams in team tables.
 // TODO: Team registration. (players can be linked to users/or not)
 // TODO: Team join/leave from players.
@@ -78,7 +99,7 @@ try
 		$page = "index";
 	}
 		
-	$smarty->display("templates/$page.tpl");
+	$smarty->display("$page.tpl");
 }
 catch(Exception $e)
 {	
@@ -89,14 +110,5 @@ catch(Exception $e)
 $userMan->__destruct();
 unset($tourneyMan);
 ob_flush();
-
-/*$render = new TournamentRenderer($test, $smarty);
-//$render->GroupRenderType = TournamentRenderer::$GAMES_INSIDE;
-//$render->GroupWidth = "300px";
-$render->ShowGames = true;
-//$render->ShowName = false;
-$render->GroupNameInTable = true;
-//$render->ShowGroup(0);
-$render->Render();*/
 
 ?>

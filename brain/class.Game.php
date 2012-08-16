@@ -1,7 +1,5 @@
 <?php
 
-require_once("../tourney/index.php");
-
 abstract class Game
 {
 	public $LNAME;
