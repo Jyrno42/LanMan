@@ -1,4 +1,4 @@
-{extends file="page.tpl"}
+﻿{extends file="page.tpl"}
 {block name=PageContents}
 
 	{if $UserManager->Can("manage_tournaments") && isset($TourneyManager)}

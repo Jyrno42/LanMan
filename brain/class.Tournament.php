@@ -1,8 +1,5 @@
 <?php
 
-//define("PROJECT_PATH", "http://v2ikegorilla.zapto.org:3128/LANMAN/");
-define("PROJECT_PATH", "http://localhost/LANMAN/");
-
 /**
  * Require the helper classes.
  */

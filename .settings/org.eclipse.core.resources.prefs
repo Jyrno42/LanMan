@@ -4,4 +4,5 @@ encoding//templates/add_tournament.tpl=UTF-8
 encoding//templates/index.tpl=UTF-8
 encoding//templates/manage.tpl=UTF-8
 encoding//templates/manage_tournament.tpl=UTF-8
+encoding//templates/teams.tpl=UTF-8
 encoding/index.php=UTF-8

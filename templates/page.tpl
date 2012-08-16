@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+﻿{extends file="layout.tpl"}
 {block name=title}LanMan - {block name=PageTitle}Home{/block}{/block}
 {block name=body}
 

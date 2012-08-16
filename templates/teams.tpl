@@ -1,4 +1,4 @@
-{extends file="page.tpl"}
+﻿{extends file="page.tpl"}
 {block name=PageContents}
 	{if $UserManager->User->Valid}
 	
@@ -7,7 +7,7 @@
 		{foreach $TourneyManager->teamMan->GetUserTeams($UserManager->User->MySql->UserID) as $val}
 			{include 'teaminfo.tpl' Team=$val modify=true}
 		{foreachelse}
-			<p>Sul pole �htegi tiimi!</p>
+			<p>Sul pole ühtegi tiimi!</p>
 		{/foreach}
 		
 		{if $UserManager->Can("create_teams")}

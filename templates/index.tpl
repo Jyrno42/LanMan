@@ -1,4 +1,4 @@
-{extends file="page.tpl"}
+﻿{extends file="page.tpl"}
 
 {block name=PageContents}
 

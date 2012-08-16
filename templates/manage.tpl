@@ -1,4 +1,4 @@
-{extends file="page.tpl"}
+﻿{extends file="page.tpl"}
 {block name=PageContents}
 <p>Siin saavad vastavate õigustega kasutajad manageerida turniire/kasutajaid jne.</p>
 
@@ -27,7 +27,7 @@
 				</td>
 			</tr>
 		{foreachelse}
-			<tr><td>Pole hetkel!</td></tr>
+			<tr><td>Pole hetkel!</td><td></td><td></td></tr>
 		{/foreach}
 		</tbody>
 	</table>

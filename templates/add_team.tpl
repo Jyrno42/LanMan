@@ -1,4 +1,4 @@
-
+ï»¿
 {if $UserManager->Can("manage_tournaments") && isset($TourneyManager)}
 
 {if $Tournament->STATUS == constant("STATUS_REGISTERING")}
@@ -6,13 +6,13 @@
 
 <form action="API.php?action=AddTeam" method="get" class="maskpost">
 
-	<div class="error">Täida väljad!</div><br />
+	<div class="error">TÃ¤ida vÃ¤ljad!</div><br />
 	<input type="hidden" name="hash" value="{$Tournament->ID}" />
 	
 	<label>Nimi: </label>
 	<input type="text" name="name" /><br />
 	
-	<label>Lühend: </label>
+	<label>LÃ¼hend: </label>
 	<input type="text" name="abbrevation" />
 	
 	<input class="lMargin" type="submit" value="Add Team" />

@@ -1,4 +1,4 @@
-{extends file="page.tpl"}
+﻿{extends file="page.tpl"}
 {block name=PageTitle}Error{/block}
 {block name=PageContents}
 	<h3>JAMA:</h3> {$error->GetMessage()}

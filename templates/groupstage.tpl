@@ -1,4 +1,4 @@
-{extends file="layout.tpl"}
+﻿{extends file="layout.tpl"}
 {block name=title}Tournament {if isset($tournament)}{$tournament->NAME}{/if} - GroupStage{/block}
 {block name=body}
 {if isset($tournament)}

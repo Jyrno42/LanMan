@@ -1,4 +1,4 @@
-{if !isset($Modify)}<h4>Lisa</h4>{/if}
+﻿{if !isset($Modify)}<h4>Lisa</h4>{/if}
 
 <form action="API.php?action={$Action}" method="get" class="maskpost {if !isset($Modify)}addTournament{/if}">
 

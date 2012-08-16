@@ -1,4 +1,4 @@
-{if isset($modify) && $modify}
+﻿{if isset($modify) && $modify}
 <div class="teammanager">
 
 <div class="head">{$Team->Name}</div>

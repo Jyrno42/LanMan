@@ -1,4 +1,4 @@
-<g transform="translate({$xPos}, {$yPos})" id="team_{$Team->uniqueID}" style="display: none;">
+﻿<g transform="translate({$xPos}, {$yPos})" id="team_{$Team->uniqueID}" style="display: none;">
 
 <rect x="0" y="0" width="300" height="{if sizeof($Team->Players) > 0}{80+((sizeof($Team->Players)-1)*20)}{else}80{/if}" style="fill:#ffffff; stroke: #B9C9FE" />
 

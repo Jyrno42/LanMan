@@ -1,4 +1,4 @@
-
+﻿
 {if $Tournament->TYPE & constant("TYPE_GROUPSTAGE")}
 
 <h3>API Builder</h3>

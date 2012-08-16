@@ -1,4 +1,4 @@
-<g transform="translate(0,{$SVGHelper->groups[$Group->index]["x"]})">
+﻿<g transform="translate(0,{$SVGHelper->groups[$Group->index]["x"]})">
 
 	<rect x="0" y="{$SVGHelper->groups[$Group->index]["y"]}" rx="20" ry="20" width="100%" height="{$SVGHelper->groups[$Group->index]["height"]}" style="fill:#B9C9FE;"/>
 	

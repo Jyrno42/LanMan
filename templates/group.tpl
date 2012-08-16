@@ -1,4 +1,4 @@
-{if !$TournamentRenderer->GroupNameInTable}<h2>Group {$Group->name}</h2>{/if}
+﻿{if !$TournamentRenderer->GroupNameInTable}<h2>Group {$Group->name}</h2>{/if}
 
 <table id="rounded-corner" {if isset($GroupWidth)}style="width: {$GroupWidth}"{/if}>
 
