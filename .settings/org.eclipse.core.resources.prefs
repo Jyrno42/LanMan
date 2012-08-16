@@ -1,0 +1,10 @@
+#Wed Aug 15 10:41:06 EEST 2012
+eclipse.preferences.version=1
+encoding//templates/RenderApi.tpl=UTF-8
+encoding//templates/add_tournament.tpl=UTF-8
+encoding//templates/index.tpl=UTF-8
+encoding//templates/manage.tpl=UTF-8
+encoding//templates/manage_tournament.tpl=UTF-8
+encoding/class.Game.php=UTF-8
+encoding/index.php=UTF-8
+encoding/teaminfo.tpl=UTF-8

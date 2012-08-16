@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry external="true" kind="lib" path="C:/Dropbox/Serverid/wamp/www/LANMAN/Smarty"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+	<buildpathentry excluding="Smarty/" kind="src" path=""/>
+	<buildpathentry external="true" kind="lib" path="C:/Dropbox/Serverid/wamp/www/tourney"/>
+</buildpath>
