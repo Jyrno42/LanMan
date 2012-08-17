@@ -6,7 +6,7 @@ class FrontPageGit
 {	
 	public function FrontPageGit($smarty)
 	{
-		$git = new GetAllGitData("jyrno42", "LanMan");
+		$git = new GetAllGitData("jyrno42", "LanMan", 30);
 		
 		if(!$smarty->isCached("index.tpl", $git->latestSha))
 		{
@@ -51,7 +51,6 @@ class GetAllGitData
 	
 	public function Get()
 	{
-		print "NOCACHE";
 		$this->GetCommitData($this->latestSha, $this->user, $this->project);
 	}
 	

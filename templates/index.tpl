@@ -40,17 +40,21 @@
 			</ul>
 	</ul>
 	<li>Kasutajate süsteem</li>
+</ul>
 
+<b>GitHub Uuendused</b>
+<ul>
 {foreach $GitData as $val}
 
 	{foreach explode("\n", $val->message) as $line}
+		{if $line@first}<b>{/if}
 		<li>{$line}</li>
+		{if $line@first}</b>{/if}
 		{if $line@first}<ul>{/if}
 		{if $line@last}</ul>{/if}
 	{/foreach}
 
 {/foreach}
-
 </ul>
 
 {/block}
