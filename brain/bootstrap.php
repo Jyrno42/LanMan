@@ -48,6 +48,9 @@ class BootStrap
 		ob_start();
 		
 		$this->Smarty = new Smarty();
+		//$this->Smarty->setCacheLifetime(1);
+		$this->Smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+		
 		$this->DeployConfig = new DeploymentConfigLoader();
 		
 		$this->Smarty->Assign("DeployConfig", $this->DeployConfig);

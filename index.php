@@ -60,9 +60,12 @@ try
 	else
 	{
 		$page = "index";
+		
+		$fpGit = new FrontPageGit($LanMan->Smarty);
 	}
 
-	$LanMan->Smarty->display("$page.tpl");
+	if($page != "index")
+		$LanMan->Smarty->display("$page.tpl");
 }
 catch(Exception $e)
 {

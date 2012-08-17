@@ -40,5 +40,17 @@
 			</ul>
 	</ul>
 	<li>Kasutajate süsteem</li>
+
+{foreach $GitData as $val}
+
+	{foreach explode("\n", $val->message) as $line}
+		<li>{$line}</li>
+		{if $line@first}<ul>{/if}
+		{if $line@last}</ul>{/if}
+	{/foreach}
+
+{/foreach}
+
 </ul>
+
 {/block}
