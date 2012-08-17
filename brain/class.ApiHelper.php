@@ -71,6 +71,11 @@ class ApiHelper
 	{
 		return json_encode($val);
 	}
+	
+	public static function ReturnSVG($val)
+	{
+		return var_export($val, true);
+	}
 }
 
 ?>

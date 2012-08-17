@@ -1,10 +1,38 @@
 <?php
 
+require_once("config/config.php");
+
+$LanMan = null;
+$LanManApi = new API();
+ 
+try
+{
+	$LanMan = new BootStrap();
+	$LanMan->Strap();
+	$LanMan->Datamanager->errorCallback = array($LanManApi, "Error");
+	
+	// TODO: Create new class LanManAPI extends API.
+	// TODO: Add all actions into new LanManAPI class.
+	
+	$LanManApi->AddAction("asd", function (){print "lol";});
+	
+	$LanManApi->Strap();
+}
+catch(Exception $e)
+{
+	$LanManApi->Error($e);
+}
+
+if($LanMan != null)
+	$LanMan->Detach();
+
+die();
+
 ob_start();
 
 /**
  * The api for our tournament usage in different platforms.
- */
+
 
 require_once("class.TourneyManager.php");
 require_once("class.DataManager.php");
@@ -12,11 +40,6 @@ require_once("class.ApiHelper.php");
 require_once("class.Tournament.php");
 require_once("class.TournamentRenderer.php");
 require_once 'Smarty/libs/Smarty.class.php';
-
-$key = "PRIVATEHASHKEYNUMMNOTSO";
-
-$_PUBLICKEY = "BEnEb#qugAdR@prUT$=EsWevegAg@suC"; // The passcode we want.
-$_PRIVATEKEY = "pR?b=anemudeSuh?X-2ethuR*brech*x"; // The key we use for encryption/decryption. //auth=9rob6asvIrCZzfe3DaDAFoKTtV1UEo1bykGW%2FrKRwRA%3D
 
 try
 {
@@ -369,5 +392,6 @@ catch(Exception $e)
 $userMan->__destruct();
 unset($Datamanager);
 ob_flush();
+*/
 
 ?>
