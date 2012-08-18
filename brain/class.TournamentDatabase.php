@@ -88,9 +88,7 @@ class TournamentDatabase extends Dataman
 	}
 	
 	public function InsertCode($k, $v)
-	{
-		// FIXME: Insertcode needs to also move the item in stdItems to appropriate mysql value if $k != insertId
-		
+	{		
 		// Add tournament...
 		$mId = $this->Insert(
 				array(

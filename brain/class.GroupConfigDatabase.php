@@ -50,13 +50,21 @@ class GroupConfigDatabase extends Dataman
 	public function InsertCode($k, $v)
 	{
 		// Add tournament...
-		$this->stdItems[$k]->uniqueID = $this->Insert(
+		$mId = $this->Insert(
 				array(
 						"tourneyID" => $v->tournamentID,
 						"GroupSize" => $v->SIZE,
 						"AdvanceTeams" => $v->ADVANCE,
 						"WinPoints" => $v->WinPoints,
 						"TiePoints" => $v->TiePoints));
+		$this->stdItems[$k]->uniqueID = $mId;
+		
+		if($k != $mId)
+		{
+			$this->stdItems[$mId] = $this->stdItems[$k];
+			unset($this->stdItems[$k]);
+			$k = $mId;
+		}
 	}
 	public function DeleteCode($k, $v)
 	{

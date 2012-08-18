@@ -51,7 +51,14 @@ class SeedManager extends Dataman
 				$arr[$key] = $val;
 			}
 		}
-		$this->stdItems[$k]->seedId = $this->Insert($arr);
+		$mId = $this->Insert($arr);
+		$this->stdItems[$k]->seedId = $mId;
+		if($k != $mId)
+		{
+			$this->stdItems[$mId] = $this->stdItems[$k];
+			unset($this->stdItems[$k]);
+			$k = $mId;
+		}
 	}
 	
 	public function DeleteCode($k, $v)

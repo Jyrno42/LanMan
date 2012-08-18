@@ -73,14 +73,22 @@ class TeamManager extends Dataman
 			$players[] = $v->uniqueID;
 		}
 		
-		// Add team...
-		$this->stdItems[$k]->uniqueID = $this->Insert(
+		// Add team... 
+		$mId = $this->Insert(
 			array(
 				"Name" => $v->Name,
 				"Abbrevation" => $v->Abbrevation,
 				"players" => implode(",", $players)
 			)
 		);
+		$this->stdItems[$k]->uniqueID = $mId;
+		
+		if($k != $mId)
+		{
+			$this->stdItems[$mId] = $this->stdItems[$k];
+			unset($this->stdItems[$k]);
+			$k = $mId;
+		}
 	}
 	
 	public function DeleteCode($k, $v)

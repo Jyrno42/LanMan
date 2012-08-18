@@ -48,7 +48,7 @@ class GamesManager extends Dataman
 		// Add tournament...
 		if(!isset($this->memory[$v->GetUniqueHash()]))
 		{
-			$this->stdItems[$k]->uniqueID = $this->Insert(
+			$mId = $this->Insert(
 					array(
 							"tournamentID" => $v->tournamentID,
 							"Played" => ($v->played ? "1" : "0"),
@@ -57,6 +57,14 @@ class GamesManager extends Dataman
 							"score1" => $v->Score1,
 							"score2" => $v->Score2,
 							"uniqueHash" => $v->GetUniqueHash()));
+			$this->stdItems[$k]->uniqueID = $mId;
+			if($k != $mId)
+			{
+				$this->stdItems[$mId] = $this->stdItems[$k];
+				unset($this->stdItems[$k]);
+				$k = $mId;
+			}
+			
 			$this->memory[$v->GetUniqueHash()] = true;
 		}
 	}

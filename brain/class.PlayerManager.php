@@ -36,9 +36,17 @@ class PlayerManager extends Dataman
 	public function InsertCode($k, $v)
 	{
 		// Add player...
-		$this->stdItems[$k]->uniqueID = $this->Insert(
+		$mId = $this->Insert(
 				array(
 						"nick" => $v->Name));
+		$this->stdItems[$k]->uniqueID = $mId;
+		
+		if($k != $mId)
+		{
+			$this->stdItems[$mId] = $this->stdItems[$k];
+			unset($this->stdItems[$k]);
+			$k = $mId;
+		}
 	}
 	
 	public function DeleteCode($k, $v)
