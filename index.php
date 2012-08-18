@@ -20,8 +20,14 @@ try
 	
 	$page = ApiHelper::GetParam("page", false, null, "index");
 
-	if($page == "manage")
+	if($page != "index")
 	{
+		// TODO: Caching everywhere!
+		$LanMan->Smarty->setCaching(Smarty::CACHING_OFF);
+	}
+	
+	if($page == "manage")
+	{	
 		if(!$LanMan->UserManager->Can("manage"))
 		{
 			throw new Exception("Pole piisavalt õigusi.");
@@ -35,7 +41,7 @@ try
 				{
 					throw new Exception("Pole piisavalt õigusi.");
 				}
-				$tournament = $tourneyMan->tourneyTable->GetTournament($tournamentID);
+				$tournament = $LanMan->Datamanager->tourneyTable->GetTournament($tournamentID);
 				$page = "manage_tournament";
 				$LanMan->Smarty->assign("Tournament", $tournament);
 	

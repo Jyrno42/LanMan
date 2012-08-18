@@ -13,15 +13,22 @@ class API
 	 * The registered actions in our application are stored here.
 	 * 
 	 * @var array(string => handler, ..)
-	 * @access private
+	 * @access protected
 	 */
-	private $Actions = array();
+	protected $Actions = array();
 	
 	/**
 	 * The $_GET key we will get our action from, defaults to 'action'.
 	 * @var string
 	 */
 	public $ActionKey = "action";
+	
+	/**
+	 * The default action we want to use.
+	 * @var mixed/string
+	 * @access private
+	 */
+	private $defAction = null;
 
 	/**
 	 * A constant returnType value for JSON.
@@ -52,9 +59,9 @@ class API
 	/**
 	 * Will use the Actions array to check actions and call appropriate handlers if needed.
 	 */
-	public function Strap()
+	public function Strap($arg)
 	{
-		$action = ApiHelper::GetParam($this->ActionKey, true, null, null);
+		$action = ApiHelper::GetParam($this->ActionKey, false, null, null);
 		
 		if($action !== null && strlen($action) > 0)
 		{
@@ -62,17 +69,32 @@ class API
 			{
 				if($k == $action)
 				{
-					return call_user_func_array($v, array()); 
+					$res = call_user_func_array($v, array());
+					if($res !== null)
+					{
+						print $this->SendResult($res);
+					}
+					return true; 
 				}
 			}
 			throw new Exception("Action $action is not yet implemented.");
 		}
+		
+		if($this->defAction !== null)
+		{
+			print $this->SendResult(call_user_func_array($this->Actions[$this->defAction], array()));
+			return true;
+		}
 		throw new Exception("Action parameter is invalid.");
 	}
 	
-	public function AddAction($action, $callback)
+	public function AddAction($action, $callback, $default=false)
 	{
 		$this->Actions[$action] = $callback;
+		if($default)
+		{
+			$this->defAction = $action;
+		}
 	}
 	
 	/**

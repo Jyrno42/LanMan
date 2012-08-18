@@ -89,14 +89,24 @@ class TournamentDatabase extends Dataman
 	
 	public function InsertCode($k, $v)
 	{
+		// FIXME: Insertcode needs to also move the item in stdItems to appropriate mysql value if $k != insertId
+		
 		// Add tournament...
-		$this->stdItems[$k]->ID = $this->Insert(
+		$mId = $this->Insert(
 				array(
 						"Name" => $v->NAME,
 						"Status" => $v->STATUS,
 						"Type" => $v->TYPE,
 						"maxTeams" => $v->maxTeams,
 						"Game" => $v->GAME->gameID));
+		$this->stdItems[$k]->ID = $mId;
+		
+		if($k != $mId)
+		{
+			$this->stdItems[$mId] = $this->stdItems[$k]; 
+			unset($this->stdItems[$k]);
+			$k = $mId;
+		}
 		
 		$v->GroupStageConfig->tournamentID = $this->stdItems[$k]->ID;
 		$this->groupConfTable->stdItems[] = $v->GroupStageConfig;
@@ -104,7 +114,7 @@ class TournamentDatabase extends Dataman
 	public function DeleteCode($k, $v)
 	{
 		if(!isset($this->stdItems[$k]) || $this->stdItems[$k] === null)
-		{
+		{	
 			unset($this->result[$k]);
 			$this->groupConfTable->ClearRelations($k);
 			$this->connection->seedMan->ClearRelations($k);

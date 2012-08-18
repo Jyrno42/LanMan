@@ -1,7 +1,5 @@
 <?php
 
-// TODO: Caching everywhere!
-
 class FrontPageGit
 {	
 	public function FrontPageGit($smarty)

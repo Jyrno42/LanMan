@@ -9,6 +9,7 @@ require_once("config/config.php");
 
 require_once("brain/class.ApiHelper.php");
 require_once("brain/class.API.php");
+require_once("brain/class.LanManAPI.php");
 require_once("brain/class.DataMan.php");
 require_once("brain/class.DataManager.php");
 require_once("brain/class.Game.php");

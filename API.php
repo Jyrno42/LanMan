@@ -1,9 +1,14 @@
 <?php
 
+
+/**
+ * The api for our tournament usage in different platforms.
+ */
+
 require_once("config/config.php");
 
 $LanMan = null;
-$LanManApi = new API();
+$LanManApi = new LanManAPI();
  
 try
 {
@@ -11,12 +16,8 @@ try
 	$LanMan->Strap();
 	$LanMan->Datamanager->errorCallback = array($LanManApi, "Error");
 	
-	// TODO: Create new class LanManAPI extends API.
-	// TODO: Add all actions into new LanManAPI class.
-	
-	$LanManApi->AddAction("asd", function (){print "lol";});
-	
-	$LanManApi->Strap();
+	$LanManApi->SetLanMan($LanMan);
+	$LanManApi->Strap($LanMan);
 }
 catch(Exception $e)
 {
@@ -365,21 +366,6 @@ try
 		{
 			$render->Render();
 		}
-	}
-	else if($action == "TypeBuilder")
-	{
-		$groups = ApiHelper::GetParam("Groups", true);
-		$tPlace = ApiHelper::GetParam("ThirdPlaceMatch");
-		$dElim = ApiHelper::GetParam("DoubleElimination");
-		
-		$type = $groups?TYPE_GROUPSTAGE:TYPE_PLAYOFFS;
-		
-		if($tPlace)
-			$type = $type | TYPE_THIRDPLACEMATCH;
-		if($dElim)
-			$type = $type | TYPE_DOUBLEELIMINATION;
-		
-		print ApiHelper::ReturnJson(array("type" => $type));
 	}
 	else
 		throw new Exception("Action $action is not implemented.");	

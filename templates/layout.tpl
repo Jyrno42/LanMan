@@ -38,7 +38,7 @@
 			    		jQuery.getJSON("API.php?action=TypeBuilder&Groups=" + $("select[name=Groups]").val() + vrs, function (ret){
 			    			if(ret.error)
 			    			{
-			    				$("input[name=type]").val("Api Error");
+			    				$(".error").html(ret.error);
 			    			}
 			    			else
 			    			{

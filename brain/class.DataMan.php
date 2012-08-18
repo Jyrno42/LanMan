@@ -143,6 +143,12 @@ abstract class Dataman
 		return false;
 	}
 	
+	public function InsertStdItem()
+	{
+		//$this->stdItems[] = ;
+		//$this->stdItems[]
+	}
+	
 	public abstract function LoadCode($k, $row);
 	public abstract function UpdateCode($k, $v);
 	public abstract function InsertCode($k, $v);
