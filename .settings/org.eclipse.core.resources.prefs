@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//templates/RenderApi.tpl=UTF-8
+encoding//templates/add_team.tpl=UTF-8
 encoding//templates/add_tournament.tpl=UTF-8
 encoding//templates/index.tpl=UTF-8
 encoding//templates/manage.tpl=UTF-8

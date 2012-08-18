@@ -13,6 +13,7 @@
 		{if $UserManager->Can("create_teams")}
 		
 			LISA
+			{include 'add_team.tpl'}
 		
 		{/if}
 	

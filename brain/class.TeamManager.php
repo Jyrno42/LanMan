@@ -46,10 +46,8 @@ class TeamManager extends Dataman
 	
 	public function LoadCode($k, $row)
 	{
-		// TODO: WTF!!! EE gets teamcarrys members now???
 		$this->stdItems[$k] = new Team($row["teamID"], $row["Name"], $row["Abbrevation"], $this->PlayerManager->GetPlayers(explode(",", $row["players"])));
 		$this->stdItems[$k]->OwnerID = $row["teamOwner"];
-		print $k . 	": " . $row["players"] . "<br>";
  	}
 	
 	public function UpdateCode($k, $v)
@@ -58,9 +56,9 @@ class TeamManager extends Dataman
 		$this->result[$k]["Abbrevation"] = $v->Abbrevation;
 		
 		$players = array();
-		foreach($v->Players as $k => $v)
+		foreach($v->Players as $k2 => $v2)
 		{
-			$players[] = $v->uniqueID;
+			$players[] = $v2->uniqueID;
 		}
 		$this->result[$k]["players"] = implode(",", $players);
 	}

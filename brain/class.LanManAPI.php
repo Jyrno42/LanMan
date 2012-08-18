@@ -244,7 +244,12 @@ class LanManAPI extends API
 			throw new Exception("Bad auth key.");
 	
 		$teamname = ApiHelper::GetParam("name", true);
+		ApiHelper::StringMin($teamname, 3, "name");
+		ApiHelper::StringMax($teamname, 32, "name");
+		
 		$abbr = ApiHelper::GetParam("abbrevation", true);
+		ApiHelper::StringMin($abbr, 2, "abbrevation");
+		ApiHelper::StringMax($abbr, 6, "abbrevation");
 	
 		$team = new Team(0, $teamname, $abbr, array());
 		$this->LanMan->Datamanager->teamMan->stdItems[] = $team;
