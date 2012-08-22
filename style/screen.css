@@ -1,4 +1,15 @@
-body {
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { 
+background: transparent;
+border: 0px none currentColor;
+font-size: 100%;
+margin: 0px 0px 0px;
+outline: 0px none currentColor;
+padding: 0px;
+vertical-align: baseline;
+}
+
+body 
+{
 	margin:0;
 	padding:0;
 	border:0;			/* This removes the border around the viewport in old versions of IE */
@@ -7,6 +18,14 @@ body {
 	min-width:600px;    	/* Minimum width of layout - remove line if not required */
 					/* The min-width property does not work in old versions of Internet Explorer */
 	font-size:90%;
+}
+:focus {
+	outline: 0px none currentColor; 
+}
+
+ol, ul 
+{ 
+	list-style: none outside none;
 }
 
 .container
@@ -17,89 +36,129 @@ body {
 
 .menu
 {
-	padding-left: 10px;
-	padding-right: 10px;
+	font-size: 1em;
+	height: 35px;
+	position: relative;
+	width: 100%;
 }
 
-a {
+.menu ul
+{
+	float: left;
+	height: 35px;
+	line-height: 35px;
+	margin: 0px;	
+	padding: 1px;
+	position: relative;
+	z-index: 5;
+	background: #E8EDFF; 	
+	width: 100%;
+}
+
+.menu ul li 
+{ 
+	float: left;
+	height: 35px;
+	margin-right: 1px;
+}
+
+.home span
+{
+	background: url(img/home2.png) no-repeat transparent;
+	float: left;
+	height: 20px;
+	margin: 7px 0px 0px;
+	width: 20px;
+}
+
+
+a.home.current span,
+a.home:hover span
+{
+	background: url(img/home2-hover.png) no-repeat transparent;
+}
+
+.menu ul li a 
+{ 
+	color: #0088DD;
+	display: block;
+	font-family: "Cuprum";
+	font-size: 1.4em;
+	font-weight: bold;
+	height: 36px;
+	line-height: 36px;
+	overflow: hidden;
+	padding: 0px 10px;
+	text-shadow: 1px 1px 0px #999999;
+	vertical-align: baseline;
+	text-decoration: none;
+}
+
+.menu ul li a:hover,
+.menu ul li a:focus, 
+.menu ul li a.current 
+{
+	background: #0088DD;
+	color: #FFFFFF;
+}
+
+.create
+{
+	float: right !important;
+}
+.create a
+{
+	color: #466e13 !important;
+}
+.create a:hover
+{
+	background: #466e13 !important;
+	color: #fff !important;
+}
+
+a
+{
 	color:#369;
 }
-a:hover {
+a:hover, .active
+{
 	color:#fff;
 	background:#369;
 	text-decoration:none;
 }
-h1, h2, h3 {
-	margin:.8em 0 .2em 0;
-	padding:0;
+
+h1, h2, h3 
+{
+	margin: .8em 0 .2em 0;
+	padding: 0;
 }
-p {
+p 
+{
 	margin:.4em 0 .8em 0;
 	padding:0;
 }
 img {
 	margin:10px 0 5px;
 }
-#ads img {
-	display:block;
-	padding-top:10px;
-}
 
 /* Header styles */
-#header {
+#header 
+{
+	border-bottom:1px solid #000;
 	clear:both;
 	float:left;
+	position: relative;
 	width:100%;
+	overflow: hidden;
 }
-#header {
-	border-bottom:1px solid #000;
-}
+
 #header p,
 #header h1,
 #header h2 {
 	padding:.4em 15px 0 15px;
 	margin:0;
 }
-#header ul {
-	clear:left;
-	float:left;
-	width:100%;
-	list-style:none;
-	margin:10px 0 0 0;
-	padding:0;
-}
-#header ul li {
-	display:inline;
-	list-style:none;
-	margin:0;
-	padding:0;
-}
-#header ul li a {
-	display:block;
-	float:left;
-	margin:0 0 0 1px;
-	padding:3px 10px;
-	text-align:center;
-	background:#eee;
-	color:#000;
-	text-decoration:none;
-	position:relative;
-	left:15px;
-	line-height:1.3em;
-}
-#header ul li a:hover {
-	background:#369;
-	color:#fff;
-}
-#header ul li a.active,
-#header ul li a.active:hover {
-	color:#fff;
-	background:#000;
-	font-weight:bold;
-}
-#header ul li a span {
-	display:block;
-}
+
 /* 'widths' sub menu */
 #layoutdims {
 	clear:both;
@@ -137,10 +196,18 @@ img {
 .rightmenu {
 	background:#eee;		/* right column background colour */
 }
-.rightmenu .colleft {
+
+.rightmenu .colleft
+{
 	right:25%;			/* right column width */
 	background:#fff;		/* left column background colour */
 }
+.rightmenu .disabledcolright
+{
+	right:0%;			/* right column width */
+	background:#fff;		/* left column background colour */
+}
+
 .rightmenu .col1 {
 	width:71%;			/* left column content width (left column width minus left and right padding) */
 	left:27%;			/* (right column width) plus (left column left padding) */
@@ -149,6 +216,13 @@ img {
 	width:21%;			/* right column content width (right column width minus left and right padding) */
 	left:31%;			/* (right column width) plus (left column left and right padding) plus (right column left padding) */
 }
+
+.rightmenu .colNoRight
+{
+	left: 27%;
+	width: 100%;
+}
+
 /* Footer styles */
 #footer {
 	clear:both;
@@ -159,4 +233,52 @@ img {
 #footer p {
 	padding:10px;
 	margin:0;
+}
+
+.h125 
+{ 
+	clear: both;
+	display: block;
+	height: 125px;
+}
+
+.h125 .leftCentered 
+{
+	float: left;
+	padding-left: 5px;
+	width: 160px;
+}
+
+.h125 .leftCentered span
+{
+	line-height: 125px;
+}
+.h125 .rightCentered 
+{
+	float: right;
+	height: 125px;
+	margin-top: -10px;
+	padding-right: 5px;
+	width: 560px;
+}
+
+.h125 .rightCentered p 
+{ 
+	background: url("img/formarrow0-25.png") 0% 50% no-repeat transparent;
+	display: block;
+	float: left;
+	height: 125px;
+	padding-left: 15px;
+	width: 560px;
+}
+.h125 .rightCentered p span 
+{
+	font: normal normal 400 12px/20px Arial;
+	background: #AFE0D4;
+	border-radius: 3px;
+	display: block;
+	height: 80px;
+	line-height: 20px;
+	margin-top: 12px;
+	padding: 10px 20px;	
 }

@@ -16,5 +16,7 @@ require_lib("libs/TournamentCode/LOL_TournamentCode.php", "Missing TournamentCod
 
 require_lib("libs/Smarty/Smarty.class.php", "Missing Smarty libary!");
 require_lib("libs/class.GetAllGitData.php", "Missing GitData libary!");
+require_lib("libs/class.Stages.php", "Missing Stages libary!");
+require_lib("libs/class.Games.php", "Missing Games libary!");
 
 ?>

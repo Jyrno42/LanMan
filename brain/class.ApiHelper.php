@@ -12,6 +12,12 @@ class ApiHelper
 		return mcrypt_decrypt($type, $key, base64_decode(urldecode($val)), "ecb");
 	}
 	
+	public static function GenerateRandomness($lenght)
+	{
+		$randomInt = rand(0, 100000);
+		return substr(md5($randomInt), 0, $lenght);
+	}
+	
 	public static function RequestValidate($private, $passCode)
 	{
 		$auth = self::FromHash(self::GetParam("auth", true), $private, MCRYPT_RIJNDAEL_128);

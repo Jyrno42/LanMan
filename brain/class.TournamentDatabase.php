@@ -1,23 +1,18 @@
 <?php
 
 require_once("class.DataMan.php");
-require_once("class.GroupConfigDatabase.php");
 
 class TournamentDatabase extends Dataman
-{	
-	public $groupConfTable;
+{
 	
 	public function TournamentDatabase($connection)
 	{
-		$this->groupConfTable = new GroupConfigDatabase($connection);
 		parent::__construct($connection, "tourneys", "tourneyID", false, false);
 	}
 	
 	public function __destruct()
 	{
-		$temp = $this->groupConfTable;
 		parent::__destruct();
-		$temp->__destruct();
 	}
 	
 	public function GetTournament($id)
@@ -38,6 +33,7 @@ class TournamentDatabase extends Dataman
 			{
 				$this->stdItems[$id]->Seed();
 			}
+			//$this->stdItems[$id]->Seed();
 				
 			// Parse games and add them to table...
 			if($this->stdItems[$id]->STATUS == STATUS_GAMES)
@@ -66,15 +62,32 @@ class TournamentDatabase extends Dataman
 	
 	public function LoadCode($k, $row)
 	{
-		$this->stdItems[$k] = new Tournament($row["Name"], $this->connection->GetGameType($row["Game"]), $row["Status"], $row["Type"], $row["maxTeams"], array(), array(), $this->groupConfTable->Get($k));
-		$this->stdItems[$k]->ID = $k;
-			
-		$teams = $this->connection->GetTeams($k);
-		foreach($teams as $k2 => $v)
+		/*try 
+		{*/
+			$this->stdItems[$k] = new Tournament(
+					$row["Name"], 
+					$row["Game"],
+					$row["Status"], 
+					$row["Type"], 
+					$row["maxTeams"], 
+					array(), 
+					array(), 
+					$row["StageConfig"], 
+					strlen($row["GameConfig"]) > 1 ? unserialize($row["GameConfig"]) : null
+			);
+			$this->stdItems[$k]->ID = $k;
+				
+			$teams = $this->connection->GetTeams($k);
+			foreach($teams as $k2 => $v)
+			{
+				$this->stdItems[$k]->AddTeam($this->connection->teamMan->GetTeam($v->teamID));
+			}
+			$this->stdItems[$k]->CreateRounds();
+		/*}
+		catch (Exception $e)
 		{
-			$this->stdItems[$k]->AddTeam($this->connection->teamMan->GetTeam($v->teamID));
-		}
-		$this->stdItems[$k]->CreateGroups();
+			unset($this->stdItems[$k]);	
+		}*/
 	}
 	
 	public function UpdateCode($k, $v)
@@ -84,7 +97,9 @@ class TournamentDatabase extends Dataman
 		$this->result[$k]["Status"] = $v->STATUS;
 		$this->result[$k]["Type"] = $v->TYPE;
 		$this->result[$k]["maxTeams"] = $v->maxTeams;
-		$this->result[$k]["Game"] = $v->GAME->gameID;
+		$this->result[$k]["Game"] = is_object($v->GAME) ? get_class($v->GAME) : $v->GAME;
+		 
+		$this->result[$k]["GameConfig"] = is_object($v->GAME) ? serialize($v->GAME->ToStorage()) : "";
 	}
 	
 	public function InsertCode($k, $v)
@@ -105,18 +120,15 @@ class TournamentDatabase extends Dataman
 			unset($this->stdItems[$k]);
 			$k = $mId;
 		}
-		
-		$v->GroupStageConfig->tournamentID = $this->stdItems[$k]->ID;
-		$this->groupConfTable->stdItems[] = $v->GroupStageConfig;
 	}
 	public function DeleteCode($k, $v)
 	{
 		if(!isset($this->stdItems[$k]) || $this->stdItems[$k] === null)
 		{	
 			unset($this->result[$k]);
-			$this->groupConfTable->ClearRelations($k);
 			$this->connection->seedMan->ClearRelations($k);
 			$this->connection->gamesManager->ClearRelations($k);
+			$this->connection->teamMan->ClearRelations($k);
 		}
 	}
 }

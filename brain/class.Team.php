@@ -37,7 +37,31 @@ class Team
 	 * @var int
 	 */
 	public $OwnerID = 0;
+
+	/**
+	 * A key used to join the team.
+	 * 
+	 * @var string
+	 */
+	public $JoinKey = "";
 	
+	/**
+	 * A key used to join the team as administrator.
+	 * 
+	 * @var string
+	 */
+	public $AdminKey = "";
+	
+	public $TournamentID = 0;
+	
+	/**
+	 * Create a team.
+	 * 
+	 * @param int $uniqueID
+	 * @param string $name
+	 * @param string $abbrevation
+	 * @param array $players
+	 */
 	public function Team($uniqueID, $name, $abbrevation, $players)
 	{
 		$this->uniqueID = $uniqueID;

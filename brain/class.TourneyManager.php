@@ -11,18 +11,10 @@ require_once("class.UserManager.php");
 
 class TourneyManager extends DataManager
 {
-	public $GameClasses = array(
-		"DefaultGame" => 1,
-		"LeagueOfLegends" => 1	
-	);
-	
-	public $CustomGames = array();
-	
 	public $seedMan;	
 	public $teamMan;
 	public $gamesManager;
 	public $tourneyTable = null;
-	public $gameTypesManager;
 	
 	public function GetFields($className)
 	{
@@ -38,24 +30,14 @@ class TourneyManager extends DataManager
 		$this->errorCallback = array($this, "SqlException");
 		parent::__construct($host, $user, $pass, $db);
 		
-		$this->gameTypesManager = new DefaultDataman($this, "gametypes", "gtID");
-		foreach ($this->gameTypesManager->result as $k => $v)
-		{
-			if(isset($this->GameClasses[$v["className"]]))
-			{
-				$this->CustomGames[$v["tag"]] = new $v["className"](explode(",", $v["arguments"]));
-				$this->CustomGames[$v["tag"]]->gameID = $v["tag"];
-			}
-		}
-		
 		$this->teamMan = new TeamManager($this);
 		$this->seedMan = new SeedManager($this, $this->teamMan);
 		$this->gamesManager = new GamesManager($this);
 		$this->tourneyTable = new TournamentDatabase($this);
 	}
 	
-	public function TeamCanRegisterToTournament(Tournament $tournament, $team)
-	{
+	public function TeamCanRegisterToTournament(Tournament $tournament, Team $team)
+	{	
 		// If team is already registered then return false!
 		foreach($tournament->Teams as $k => $v)
 		{
@@ -63,6 +45,11 @@ class TourneyManager extends DataManager
 			{
 				return false;
 			}
+		}
+		// Override for tournament specific teams!
+		if($team->TournamentID != 0)
+		{
+			return $team->TournamentID == $tournament->ID;
 		}
 		
 		return $tournament->GAME->ValidateTeamForGame($team);
@@ -85,12 +72,6 @@ class TourneyManager extends DataManager
 		}
 		return $ret;
 	}
-	
-	public function GetGameType($name)
-	{ 
-		return isset($this->CustomGames[$name]) ? $this->CustomGames[$name] : new DefaultGame(array("LongName", "LN"));
-	}
-	
 	public function SeedComplete(Tournament $tournament)
 	{
 		// Store seeds for teams...
@@ -128,9 +109,6 @@ class TourneyManager extends DataManager
 		
 		if($this->seedMan != null)
 			$this->seedMan->__destruct();
-		
-		if($this->gameTypesManager != null)
-			$this->gameTypesManager->__destruct();
 		
 		exit();
 	}

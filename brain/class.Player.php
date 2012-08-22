@@ -1,5 +1,11 @@
 <?php
 
+
+/**
+ * Gameaccounts class.
+ * @author TH3F0X
+ *
+ */
 class Player
 {
 	/**
@@ -20,10 +26,10 @@ class Player
 	public $Name;
 	
 	/**
-	 * The game accounts associated with this player. TODO: Add the gameaccount logic.
-	 * @var array(GameAccount)
+	 * The game of this gameAccount.
+	 * @var string
 	 */
-	public $gameAccounts = array();
+	public $Game = "DefaultGame";
 	
 	/**
 	 * The constructor for player object.

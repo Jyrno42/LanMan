@@ -17,9 +17,9 @@
 	<input type="radio" value="0" name="NameInTable" />Väljas<br />
 	
 	<label>Mängude Kuvamine:</label>
-	<input type="radio" value="-1" name="GroupRenderType" />Ei kuva 
-	<input type="radio" value="1" name="GroupRenderType" />Tabelis
-	<input type="radio" value="0" name="GroupRenderType" />Peale tabelit<br />
+	<input type="radio" value="-1" name="RenderType" />Ei kuva 
+	<input type="radio" value="1" name="RenderType" />Tabelis
+	<input type="radio" value="0" name="RenderType" />Peale tabelit<br />
 	
 	<label>Eraldi grupid</label>
 	<select name="ShowGroup[]" multiple="multiple">

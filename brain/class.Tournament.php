@@ -1,18 +1,6 @@
 <?php
 
 /**
- * Require the helper classes.
- */
-require_once("class.Game.php");
-require_once("class.GameStage.php");
-require_once("class.GameResult.php");
-require_once("class.Group.php");
-require_once("class.GroupStage.php");
-require_once("class.GroupStageConfig.php");
-require_once("class.Team.php");
-require_once("class.Player.php");
-
-/**
  * Tournament Status Added
  * @var define
  */
@@ -47,41 +35,6 @@ define("STATUS_LIVE", 4);
  * @var define
  */
 define("STATUS_COMPLETED", 5);
-
-/**
- * Tournament Type GroupStage and Playoffs
- * @var bitfield[0]
- */
-define("TYPE_GROUPSTAGE", 1 << 0); // Groups only
-
-/**
- * Tournament Type PlayOffs Only
- * @var bitfield[0]
- */
-define("TYPE_PLAYOFFS", 0 << 0); // Only playoffs
-
-/**
- * Tournament Uses ThirdPlaceMatch
- * @var bitfield[2]
- */
-define("TYPE_THIRDPLACEMATCH", 1 << 2); // Use Thrid Place Match
-
-/**
- * Tournament Type SingleElimination
- * @var bitfield
- */
-
-/**
- * Single or double elimination(use loserbracket or not)
- * @var bitfield[3]
- */
-define("TYPE_SINGLEELIMINATION", 0 << 3);
-
-/**
- * Single or double elimination(use loserbracket or not)
- * @var bitfield[3]
- */
-define("TYPE_DOUBLEELIMINATION", 1 << 3);
 
 /**
  * Class that contains all tournament backbone logic.
@@ -161,30 +114,27 @@ class Tournament
 	
 	/**
 	 * Configuration for group stage.
-	 * @var GroupStageConfig
+	 * @var StageConfig
 	 */
-	public $GroupStageConfig = null;
+	public $stageConfig = null;
 	
 	/**
 	 * 
 	 * @param string $name
-	 * @param Game $game
+	 * @param string $game
 	 * @param int $status
-	 * @param bitfield $type
+	 * @param string $type
 	 * @param int $maxTeams
 	 * @param array(Team) $teams
 	 * @param array(GameResult) $games
-	 * @param GroupStageConfig $groupStageConfig
+	 * @param string $stageConfig
+	 * @param mixed null/array $gameconfig
 	 * @throws Exception
 	 */
-	public function Tournament($name, Game $game, $status, $type, $maxTeams, $teams, $games, $groupStageConfig=null)
+	public function Tournament($name, $game, $status, $type, $maxTeams, $teams, $games, $stageConfig, $gameConfig)
 	{
-		// Debug function for coding.
-		//self::BitDebug($type);
-		
 		// Set some variables.
 		$this->NAME = $name;
-		$this->GAME = $game;
 		$this->STATUS = $status;
 		$this->TYPE = $type;
 		
@@ -193,10 +143,18 @@ class Tournament
 		$this->Teams = $teams;
 		$this->Games = $games;
 		
-		$this->GroupStageConfig = $groupStageConfig;
+		Stages::instance()->LoadStage($type);
+		Games::instance()->LoadGame($game);
+
+		$this->GAME = Games::instance()->GetGame($game);
+		if($gameConfig != null && is_array($gameConfig))
+			$this->GAME->FromConfigForm($gameConfig);
 		
-		if($type & TYPE_GROUPSTAGE)
-		{
+		$this->stageConfig = unserialize($stageConfig);
+		$this->Stages[] = Stages::instance()->GetStage($type, $this);
+		
+		/*if($type & TYPE_GROUPSTAGE)
+		{ 
 			if($groupStageConfig == null)
 				throw new Exception("Tournament must have a groupstageconfig if group stage is used.");
 			
@@ -224,7 +182,7 @@ class Tournament
 				//
 				throw new Exception("Not yet implemented.");
 			}
-		}
+		}*/
 	}
 	
 	/**
@@ -233,20 +191,49 @@ class Tournament
 	 */
 	public function AddTeam(Team $team)
 	{
-		if(isset($team->Seed[$this->ID]) && $team->Seed[$this->ID] !== FALSE)
+		if(isset($team->Seeds[$this->ID]) && $team->Seeds[$this->ID] != -1)
 		{
-			$this->Teams[$team->Seed[$this->ID]] = $team;
+			$this->Teams[$team->Seeds[$this->ID]] = $team;
 		}
 		else
 			$this->Teams[] = $team;
 	}
 	
-	public function CreateGroups()
+	public function CreateRounds()
 	{
-		if($this->TYPE & TYPE_GROUPSTAGE)
+		foreach($this->Stages as $k => $v)
 		{
-			$this->Stages["groups"]->CreateGroups($this);
+			$v->CreateRounds($this);
 		}
+	}
+
+	/**
+	 * Swap two array member positions.
+	 * 
+	 * @param mixed $a
+	 * @param mixed $b
+	 */
+	function swap(&$a, &$b) 
+	{
+		list($a, $b) = array($b, $a); 
+	}
+	
+	/**
+	 * Shuffles the provided array keeping values that are not provided in keys at their place.
+	 * 
+	 * @param array $arr The array we want to shuffle.
+	 * @param array $keys The keys we want to use in shuffle
+	 * @return boolean
+	 */
+	private function suffleSome(&$arr, $keys)
+	{
+		$len = count($keys); // Array size
+		for($i = 0; $i < $len; $i++)  // For each array member
+		{
+			$j = rand(1, $len) - 1; // Get 1 random member in array
+			$this->swap($arr[$keys[$i]], $arr[$keys[$j]]);
+		}
+		return true;
 	}
 	
 	/**
@@ -254,9 +241,21 @@ class Tournament
 	 */
 	public function Seed()
 	{
-		if(shuffle($this->Teams))
+		// Store the keys we want to suffle.
+		$keys = array();
+		
+		// Get all keys that dont have seeds already.
+		foreach($this->Teams as $k => $v)
 		{
-			$this->CreateGroups();
+			if($v->Seeds[$this->ID] == -1)
+			{
+				$keys[] = $k;
+			}
+		}
+		
+		if($this->suffleSome($this->Teams, $keys))
+		{
+			$this->CreateRounds();
 		}
 	}
 	
@@ -287,17 +286,17 @@ class Tournament
 	
 	public function GenerateGames()
 	{
-		if($this->TYPE & TYPE_GROUPSTAGE)
+		foreach($this->Stages as $k => $v)
 		{
-			return $this->Stages["groups"]->GenerateGames($this);
+			$v->GenerateGames($this);
 		}
 		return array();
 	}
 	public function CalculateFromResults()
 	{
-		if($this->TYPE & TYPE_GROUPSTAGE)
+		foreach($this->Stages as $k => $v)
 		{
-			$this->Stages["groups"]->CalculateFromResults($this);
+			$v->CalculateFromResults($this);
 		}
 	}
 	
@@ -312,19 +311,51 @@ class Tournament
 			$this->Games[] = $game;
 	}
 	
-	
-	public static function BitDebug($type)
+	public function IsCompleted()
 	{
-		if($type & TYPE_GROUPSTAGE)
-			print "TYPE_GROUPSTAGE<br>";
-		if(!($type & TYPE_GROUPSTAGE))
-			print "TYPE_PLAYOFFS<br>";
-		if($type & TYPE_THIRDPLACEMATCH)
-			print "TYPE_THIRDPLACEMATCH<br>";
-		if(!($type & TYPE_DOUBLEELIMINATION))
-			print "TYPE_SINGLEELIMINATION<br>";
-		if($type & TYPE_DOUBLEELIMINATION)
-			print "TYPE_DOUBLEELIMINATION<br>";
+		try 
+		{
+			$log = "";
+			$this->CheckForCompletion($log);
+			return $log;
+		}
+		catch(Exception $e)
+		{
+			return "Problem: " . $e->getMessage();
+		}
+	}
+	
+	/**
+	 * 
+	 * @return boolean
+	 */
+	private function GamesDone()
+	{
+		$ret = true;
+		foreach ($this->Games as $k => $v)
+		{
+			if(!$v->played)
+			{
+				$ret = false;
+				break;
+			}
+		}
+		return $ret;
+	}
+	
+	private function CheckForCompletion(&$log)
+	{
+		// Bad Status
+		if($this->STATUS != STATUS_LIVE)
+			throw new Exception("This tournament is not in the right status.");
+
+		if(!$this->GamesDone())
+			throw new Exception("This tournament has some more games to finish...");
+		
+		foreach($this->Stages as $k => $v)
+		{
+			$v->IsComplete($this, $log);
+		}
 	}
 };
 

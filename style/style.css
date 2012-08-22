@@ -657,7 +657,7 @@ tr .Team:hover .teamID, .game:hover .pvpLink
 
 .teammanager:last-child
 {
-	border: 1px solid black;
+	border-bottom: 1px solid black;
 }
 
 .teammanager .head

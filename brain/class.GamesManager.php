@@ -20,6 +20,7 @@ class GamesManager extends Dataman
 		$this->stdItems[$k]->played = $row["Played"] == 1;
 		$this->stdItems[$k]->tournamentID = $row["tournamentID"];
 		$this->stdItems[$k]->uniqueID = $row["gameID"];
+		$this->stdItems[$k]->GameNumber = $row["gameNr"];
 		
 		$this->memory[$this->stdItems[$k]->GetUniqueHash()] = true;
 	}
@@ -33,11 +34,30 @@ class GamesManager extends Dataman
 		$this->result[$k]["tournamentID"] = $v->tournamentID;
 	}
 	
-	public function Get($id)
+	/**
+	 * 
+	 * @param int $id
+	 * @throws Exception
+	 * @return GameResult
+	 */
+	public function GetGame($id)
+	{
+		if(isset($this->stdItems[$id]))
+		{
+			return $this->stdItems[$id];
+		}
+		throw new Exception("Gameresult $id not found!");
+		return null;
+	}
+	
+	public function Get($tournamentid)
 	{
 		$ret = array();
 		foreach($this->stdItems as $k => $v)
 		{
+			if($v->tournamentID != $tournamentid)
+				continue;
+			
 			$ret[$k] = $v;
 		}
 		return $ret;

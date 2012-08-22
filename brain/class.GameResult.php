@@ -13,11 +13,19 @@ class GameResult
 	public $Score1 = 0;
 	public $Score2 = 0;
 	
+	/**
+	 * Is this the first game between teams, this should make creating home/away games in groups available.
+	 * TODO: GamesInGroups to GroupStageConfig.
+	 * 
+	 * @var int
+	 */
+	public $GameNumber = 0;
+	
 	public function GetUniqueHash()
 	{
 		$v1 = $this->Team1->uniqueID > $this->Team2->uniqueID ? $this->Team1->uniqueID : $this->Team2->uniqueID;
 		$v2 = $this->Team1->uniqueID < $this->Team2->uniqueID ? $this->Team1->uniqueID : $this->Team2->uniqueID; 
-		return sprintf("%d|%d|%d", $this->tournamentID, $v1, $v2);
+		return sprintf("%d|%d|%d|%d", $this->tournamentID, $v1, $v2, $this->GameNumber);
 	}
 	
 	/**

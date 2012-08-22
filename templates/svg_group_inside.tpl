@@ -82,10 +82,10 @@
 						
 						<text x="{$precent + ($step/2)}%" y="{$val["text"]+10}" height="{$SVGHelper->rowH}" fill="#039" text-anchor="middle">
 						{if $game->Result() == null}
-							{$tournament->GroupStageConfig->TiePoints}
+							{$tournament->stageConfig->TiePoints}
 						{else}
 							{if $game->Result() == $Team->team}
-								{$tournament->GroupStageConfig->WinPoints}
+								{$tournament->stageConfig->WinPoints}
 							{else}
 								0
 							{/if}

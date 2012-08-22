@@ -1,11 +1,16 @@
-﻿{if isset($modify) && $modify}
+﻿{if isset($modify) && $modify || isset($more) && $more}
 <div class="teammanager">
 
 <div class="head">{$Team->Name}</div>
 
-<div class="body hideAfter">
+<div class="body">
+
+{if isset($modify) && $modify}
 
 <h4>Muuda</h4>
+
+<label><b>Parool Liitumiseks:</b></label> {$Team->JoinKey}<br /><br />
+
 <form action="API.php?action=UpdateTeam" method="get" class="maskpost">
 	<div class="error"> </div>
 	<input type="hidden" name="TeamID" value="{$Team->uniqueID}" />
@@ -23,10 +28,14 @@
 	<label>Kirjuta siia KUSTUTA:</label> <input type="text" name="validate" value="" /><br />
 	<input type="submit" value="Kustuta" class="lMargin" />
 </form>
+
 <h4>Liikmed</h4>
+
 {else}
 <b>{$Team->Name}</b><br />
 {$Team->Abbrevation}<br />
+
+{/if}
 {/if}
 
 <ul>
@@ -46,7 +55,20 @@
 {/foreach}
 </ul>
 
-{if isset($modify) && $modify}
+﻿{if isset($modify) && $modify || isset($more) && $more}
+
+{if !isset($modify) || !$modify}
+	<h4>Liitu: </h4>
+	<form action="Api.php?action=JoinTeam" method="get" class="maskpost">
+		<div class="error"> </div>
+		
+		<input type="hidden" name="teamID" value="{$Team->uniqueID}" />
+		<label>Liitumiskood</label><input type="text" name="JoinKey" /> <br />
+		
+		<input type="submit" class="lMargin" />
+	</form>
+{/if}
+
 </div>
 </div>
 {/if}

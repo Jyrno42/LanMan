@@ -11,30 +11,27 @@
 		</div>
 	
 		<div class="menu">
-
-			<a href="?page=index">Home</a>
-			{if isset($UserManager) && $UserManager->User->Valid}			
-				<a href="?page=teams">Teams</a>
-				
-				{if $UserManager->Can("manage")}
-					<a href="?page=manage">Manage</a>
-				{/if}
-				<a href="{$UserManager->logoutUrl}">Logout</a>
-			{else if isset($UserManager)}
-				<a href="{$UserManager->loginUrl}">Login with Facebook</a>
-			{/if}
-
+			{nocache}
+			<ul>
+				{foreach $Menus as $val}
+					<li {if isset($val["liclass"])}class="{$val["liclass"]}"{/if}><a href="?page={$val["page"]}" class="{if isset($val["class"])}{$val["class"]}{/if} {if $val["page"] == $page}current{/if}">{$val["label"]}</a></li>
+				{foreachelse}
+					<li>Ei ole</li>
+				{/foreach}
+			</ul>
+			{/nocache}
 		</div>
 	</div>
 	
 	<div class="colmask rightmenu">
 	
-		<div class="colleft">
+		<div class="{if !isset($DisableRight)}colleft{else}disabledcolright{/if}">
 		
-			<div class="col1">{block name=PageContents}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis accumsan lectus ac semper. Nullam venenatis varius diam, ac interdum lacus rhoncus ac. Fusce in quam elit, et ornare erat. Quisque condimentum volutpat massa at dignissim. Integer ornare vehicula congue. Nunc eget neque a tortor placerat tincidunt vel eu neque. Nulla lorem lacus, semper a egestas vel, rutrum id lectus. Proin auctor gravida enim sollicitudin mollis. Sed condimentum aliquam nisl, ac pretium purus rutrum sit amet. Integer tempus malesuada fringilla. Vivamus a tortor sit amet sapien pretium venenatis sed ac sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam mattis libero a diam lacinia vehicula.{/block}</div>
+			<div class="{if !isset($DisableRight)}col1{else}colNoRight{/if}">{block name=PageContents}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sagittis accumsan lectus ac semper. Nullam venenatis varius diam, ac interdum lacus rhoncus ac. Fusce in quam elit, et ornare erat. Quisque condimentum volutpat massa at dignissim. Integer ornare vehicula congue. Nunc eget neque a tortor placerat tincidunt vel eu neque. Nulla lorem lacus, semper a egestas vel, rutrum id lectus. Proin auctor gravida enim sollicitudin mollis. Sed condimentum aliquam nisl, ac pretium purus rutrum sit amet. Integer tempus malesuada fringilla. Vivamus a tortor sit amet sapien pretium venenatis sed ac sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam mattis libero a diam lacinia vehicula.{/block}</div>
 			
+			{if !isset($DisableRight)}
 			<div class="col2">
-			
+			{nocache}
 				{if isset($UserManager) && $UserManager->User->Valid}
 				
 					Hei, <b>{$UserManager->User->FacebookUser["name"]}!</b><br />
@@ -55,8 +52,9 @@
 						<ul>
 					{/if}
 				{/block}
-			
+			{/nocache}	
 			</div>
+			{/if}
 		
 		</div>
 	

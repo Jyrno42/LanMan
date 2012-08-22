@@ -12,9 +12,29 @@ class PlayerManager extends Dataman
 	public function GetPlayers($playerIds)
 	{
 		$arr = array();
+		foreach ($playerIds as $k => $v)
+		{
+			if($v != "" && !is_numeric($v))
+			{
+				$arr[] = new Player(0, $v);
+			}
+		}
 		foreach($this->stdItems as $k => $v)
 		{
 			if(array_search($v->uniqueID, $playerIds) !== FALSE)
+			{
+				$arr[] = $v;
+			}
+		}
+		return $arr;
+	}
+	
+	public function GetUserPlayers($userId)
+	{
+		$arr = array();
+		foreach($this->stdItems as $k => $v)
+		{
+			if($v->UserID == $userId)
 			{
 				$arr[] = $v;
 			}

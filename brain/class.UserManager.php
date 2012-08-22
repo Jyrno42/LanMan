@@ -1,8 +1,8 @@
 <?php
 
-define("FORCE_USER", "jyrno42@gmail.com");
+/*define("FORCE_USER", "jyrno42@gmail.com");
 define("USER_ID", "1");
-define("USER_FB_ID", "100000994269157");
+define("USER_FB_ID", "100000994269157");*/
 
 require_once("facebook/src/facebook.php");
 
@@ -55,6 +55,21 @@ class UserManager extends Dataman
 				$this->User->MySql->UserID = USER_ID;
 				
 				$this->User->FacebookUser = array("email" => FORCE_USER, "name" => "DefaultUser");
+				$this->logoutUrl = "?logout";
+				return;
+			}
+			
+			// FIXME: Create a better solution for onsite login...
+			if(isset($_COOKIE["authHash"]))
+			{
+				$vals = explode(",", $_COOKIE["authHash"]);
+				
+				$this->User->Valid = true;
+				$this->User->FacebookId = "13";
+				$this->User->MySql = (object)null;
+				$this->User->MySql->UserID = $vals[0];
+				
+				$this->User->FacebookUser = array("email" => $vals[1], "name" => $vals[2]);
 				$this->logoutUrl = "?logout";
 				return;
 			}
@@ -139,6 +154,20 @@ class UserManager extends Dataman
 	public function DeleteCode($k, $v)
 	{
 	}
+	
+	private function GetMyHash()
+	{
+		if($this->User->Valid && isset($this->User->MySql->UserID))
+		{
+			//return $this->User->MySql->UserID . $this->User->MySql->Email;
+		}
+		return null;
+	}
+	
+	public function CanModifyTeam(Team $Team)
+	{
+		return $this->Can("manage") || ($Team->OwnerID != 0 && $this->User->MySql->UserID == $Team->OwnerID);
+	}
 };
 
 class Rights
@@ -148,7 +177,7 @@ class Rights
 		"manage_tournaments" => 1,			
 		"manage_users" => 2,			
 		"create_teams" => 3,			
-		"unused_4" => 4,			
+		"create_tournaments" => 4,			
 		"unused_5" => 5,			
 		"unused_6" => 6,			
 		"unused_7" => 7,			

@@ -1,9 +1,13 @@
 eclipse.preferences.version=1
+encoding//config/config.php=UTF-8
 encoding//templates/RenderApi.tpl=UTF-8
 encoding//templates/add_team.tpl=UTF-8
-encoding//templates/add_tournament.tpl=UTF-8
 encoding//templates/index.tpl=UTF-8
 encoding//templates/manage.tpl=UTF-8
 encoding//templates/manage_tournament.tpl=UTF-8
+encoding//templates/profile.tpl=UTF-8
+encoding//templates/team.tpl=UTF-8
+encoding//templates/teaminfo.tpl=UTF-8
 encoding//templates/teams.tpl=UTF-8
+encoding//templates/twizard.tpl=UTF-8
 encoding/index.php=UTF-8

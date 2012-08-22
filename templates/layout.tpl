@@ -8,8 +8,11 @@
 		<script src="http://malsup.github.com/jquery.form.js"></script>
 		<script type="text/javascript" src="style/jquery.maskPost.js"></script>
   
-		<link rel='stylesheet' id='smash-commentratings-css'  href="style/style.css" type='text/css' media='all' />
-		<link rel="stylesheet" href="style/screen.css" type="text/css" media="screen" /> 
+		<link rel="stylesheet" href="style/style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="style/screen.css" type="text/css" media="screen" />
+		
+		<link rel="stylesheet" href="style/jquery-ui-1.8.23.custom.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="style/jquery-ui-1.8.23.custom.min.js"></script>
 		
 		<script type="text/javascript">
 			$(document).ready(function() {  
@@ -67,6 +70,7 @@
 			    );
 			    $(".hideAfter").hide();
 			    $(".maskpost").maskPost();
+			    $(".seedMask").maskPost({ selector: ".seedError" });
 			    $(".renderApiBuilder").maskPost({ selector: "#buildResult", errorLabel: "" });
 			    $(".confirmpost").maskPost({ confirm: "Oled kindel?" });
 			    $("#BaseClass").change(function (){
@@ -84,12 +88,11 @@
 			    	}
 			    }); 
 			    
-			    $(".teammanager .head").click(
-			    	function ()
-			    	{
-			    		$(this).parent(".teammanager").children(".body").toggle();
-			    	}	
-			    );
+			    $(".newRow").click(function(){
+			    
+			    	$(this).parent("form").children(".ply").append("<input type='text' name='players[]' /><br />");
+			    
+			    });
 			});
 		</script>
   

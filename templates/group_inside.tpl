@@ -65,10 +65,10 @@
 								
 								<hr>
 								{if $game->Result() == null}
-									<b>{$tournament->GroupStageConfig->TiePoints}</b>
+									<b>{$tournament->stageConfig->TiePoints}</b>
 								{else}
 									{if $game->Result() == $val->team}
-										<b>{$tournament->GroupStageConfig->WinPoints}</b>
+										<b>{$tournament->stageConfig->WinPoints}</b>
 									{else}
 										<b>0</b>
 									{/if}

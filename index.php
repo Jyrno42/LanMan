@@ -13,8 +13,8 @@ $LanMan = null;
 try 
 {
 	$LanMan = new BootStrap();
-	$LanMan->Strap();
-
+	$LanMan->Strap();	
+		
 	$LanMan->Smarty->assign("TourneyManager", $LanMan->Datamanager);
 	$LanMan->Smarty->assign("UserManager", $LanMan->UserManager);
 	
@@ -46,16 +46,26 @@ try
 				$LanMan->Smarty->assign("Tournament", $tournament);
 	
 				$render = new TournamentRenderer($tournament, $LanMan->Smarty);
+				$render->GroupRenderType = TournamentRenderer::GAMES_OUTSIDE;
+				$render->ShowName = true;
+				$render->GroupNameInTable = true;
+				
 				$helper = new SVGHelper($render, $tournament);
 				$helper->Parse();
 	
 				//$LanMan->Smarty->assign("Render", $render->RenderStr());
-				$LanMan->Smarty->assign("Render", "<object data='API.php?action=Render&hash=" . $tournamentID . "&type=SVG&NameInTable=1&ShowName=1' type='image/svg+xml' width='100%' height='$helper->Height'></object>");
+				$LanMan->Smarty->assign("Render", "<object data='API.php?action=Render&hash=" . $tournamentID . "&type=SVG&&ShowName=1&NameInTable=1&RenderType=1' type='image/svg+xml' width='100%' height='$helper->Height'></object>");
 			}
 		}
 	}
+	else if($page == "twizard")
+	{
+		$LanMan->Smarty->assign("DisableRight", true);
+	}
 	else if($page == "teams")
 	{
+		throw new Exception("DISABLED!");
+		
 		if(!$LanMan->UserManager->User->Valid)
 		{
 			throw new Exception("Pole piisavalt õigusi.");
@@ -63,18 +73,39 @@ try
 	
 		// TODO: Teams CreateReadUpdateDelete.
 	}
+	else if($page == "team")
+	{
+		throw new Exception("DISABLED!");
+		
+		$teamid = ApiHelper::GetParam("teamid", true);
+		$team = $LanMan->Datamanager->teamMan->GetTeam($teamid);
+		
+		$LanMan->Smarty->assign("Team", $team);
+	}
+	else if($page == "profile")
+	{
+		// TODO: Add gameaccounts.
+		// TODO: Remove gameaccounts.
+
+		throw new Exception("DISABLED!");
+	}
 	else
 	{
 		$page = "index";
 		
+		$LanMan->Smarty->assign("page", $page);
 		$fpGit = new FrontPageGit($LanMan->Smarty);
 	}
 
 	if($page != "index")
+	{
+		$LanMan->Smarty->assign("page", $page);
 		$LanMan->Smarty->display("$page.tpl");
+	}
 }
 catch(Exception $e)
 {
+	$LanMan->Smarty->setCaching(Smarty::CACHING_OFF);
 	$LanMan->Smarty->assign("error", $e);
 	$LanMan->Smarty->display("error.tpl");
 }
