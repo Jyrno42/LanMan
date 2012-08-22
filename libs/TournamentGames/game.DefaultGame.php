@@ -5,6 +5,7 @@ class DefaultGame extends BaseGame
 	const LName = "Other Games";
 	const SName = "Other";
 
+	
 	public static function GetConfigForm()
 	{
 		return array(
