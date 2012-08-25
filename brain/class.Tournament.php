@@ -72,7 +72,7 @@ class Tournament
 	
 	/**
 	 * The game for this tournament.
-	 * @var Game
+	 * @var BaseGame
 	 */
 	public $GAME = null;
 	
@@ -87,12 +87,6 @@ class Tournament
 	 * @var int
 	 */
 	public $TYPE = 0;
-	
-	/**
-	 * The maximum number of teams.
-	 * @var int
-	 */
-	public $maxTeams = 0;
 	
 	/**
 	 * The array which contains the stages of our tournament.
@@ -114,7 +108,7 @@ class Tournament
 	
 	/**
 	 * Configuration for group stage.
-	 * @var StageConfig
+	 * @var BaseStageConfig
 	 */
 	public $stageConfig = null;
 	
@@ -124,21 +118,18 @@ class Tournament
 	 * @param string $game
 	 * @param int $status
 	 * @param string $type
-	 * @param int $maxTeams
 	 * @param array(Team) $teams
 	 * @param array(GameResult) $games
 	 * @param string $stageConfig
 	 * @param mixed null/array $gameconfig
 	 * @throws Exception
 	 */
-	public function Tournament($name, $game, $status, $type, $maxTeams, $teams, $games, $stageConfig, $gameConfig)
+	public function Tournament($name, $game, $status, $type, $teams, $games, $stageConfig, $gameConfig)
 	{
 		// Set some variables.
 		$this->NAME = $name;
 		$this->STATUS = $status;
 		$this->TYPE = $type;
-		
-		$this->maxTeams = $maxTeams;
 		
 		$this->Teams = $teams;
 		$this->Games = $games;
@@ -146,11 +137,18 @@ class Tournament
 		Stages::instance()->LoadStage($type);
 		Games::instance()->LoadGame($game);
 
-		$this->GAME = Games::instance()->GetGame($game);
-		if($gameConfig != null && is_array($gameConfig))
-			$this->GAME->FromConfigForm($gameConfig);
+		if($gameConfig == null || !is_array($gameConfig))
+			throw new Exception("Bad GameConfig provided!");
+		if($stageConfig == null || !is_array($stageConfig))
+			throw new Exception("Bad StageConfig provided!");
 		
-		$this->stageConfig = unserialize($stageConfig);
+		$this->GAME = Games::instance()->GetGame($game);
+		$this->GAME->FromConfigForm($gameConfig);
+	
+		$this->stageConfig = Stages::instance()->GetConfig($type);
+		$this->stageConfig->ValidateArguments($stageConfig);
+		$this->stageConfig->FromConfigForm($stageConfig);
+		
 		$this->Stages[] = Stages::instance()->GetStage($type, $this);
 		
 		/*if($type & TYPE_GROUPSTAGE)

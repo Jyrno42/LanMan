@@ -64,7 +64,12 @@ class Stages
 	
 	public function GetConfig($stageName)
 	{
-		return $this->LoadStage($stageName) != null;
+		if($this->LoadStage($stageName) != null && class_exists($stageName . "Config"))
+		{
+			$c = $stageName . "Config";
+			return new $c();
+		}
+		return null;
 	}
 	
 	public function GetAllStages()

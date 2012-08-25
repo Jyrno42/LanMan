@@ -24,7 +24,7 @@ class TournamentDatabase extends Dataman
 				//$this->stdItems[$id]->STATUS = STATUS_REGISTERING;
 			}
 				
-			if($this->stdItems[$id]->STATUS == STATUS_REGISTERING && sizeof($this->stdItems[$id]->Teams) == $this->stdItems[$id]->maxTeams)
+			if($this->stdItems[$id]->STATUS == STATUS_REGISTERING && sizeof($this->stdItems[$id]->Teams) == $this->stdItems[$id]->stageConfig->maxTeams)
 			{
 				$this->stdItems[$id]->STATUS = STATUS_SEEDING;
 			}
@@ -69,11 +69,10 @@ class TournamentDatabase extends Dataman
 					$row["Game"],
 					$row["Status"], 
 					$row["Type"], 
-					$row["maxTeams"], 
 					array(), 
-					array(), 
-					$row["StageConfig"], 
-					strlen($row["GameConfig"]) > 1 ? unserialize($row["GameConfig"]) : null
+					array(),
+					explode(",", $row["StageConfig"]),
+					explode(",", $row["GameConfig"])
 			);
 			$this->stdItems[$k]->ID = $k;
 				
@@ -96,10 +95,10 @@ class TournamentDatabase extends Dataman
 		$this->result[$k]["Name"] = $v->NAME;
 		$this->result[$k]["Status"] = $v->STATUS;
 		$this->result[$k]["Type"] = $v->TYPE;
-		$this->result[$k]["maxTeams"] = $v->maxTeams;
 		$this->result[$k]["Game"] = is_object($v->GAME) ? get_class($v->GAME) : $v->GAME;
-		 
-		$this->result[$k]["GameConfig"] = is_object($v->GAME) ? serialize($v->GAME->ToStorage()) : "";
+
+		$this->result[$k]["GameConfig"] = implode(",", $v->GAME->ToStorage());
+		$this->result[$k]["StageConfig"] = implode(",", $v->stageConfig->ToStorage());
 	}
 	
 	public function InsertCode($k, $v)
@@ -110,8 +109,11 @@ class TournamentDatabase extends Dataman
 						"Name" => $v->NAME,
 						"Status" => $v->STATUS,
 						"Type" => $v->TYPE,
-						"maxTeams" => $v->maxTeams,
-						"Game" => $v->GAME->gameID));
+						"Game" => is_object($v->GAME) ? get_class($v->GAME) : $v->GAME,
+						"GameConfig" => implode(",", $v->GAME->ToStorage()),
+						"StageConfig" => implode(",", $v->stageConfig->ToStorage())
+				)
+		);
 		$this->stdItems[$k]->ID = $mId;
 		
 		if($k != $mId)

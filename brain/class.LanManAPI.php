@@ -10,7 +10,7 @@ class LanManAPI extends API
 	
 	public function LanManAPI()
 	{
-		$this->AddAction("CreateTournament", array($this, "CreateTournament"));
+		/*$this->AddAction("CreateTournament", array($this, "CreateTournament"));
 		$this->AddAction("TypeBuilder", array($this, "TypeBuilder"));
 
 		$this->AddAction("UpdateTournament", array($this, "UpdateTournament"));
@@ -32,7 +32,7 @@ class LanManAPI extends API
 		$this->AddAction("JoinTeam", array($this, "JoinTeam"));
 		$this->AddAction("UpdateTeam", array($this, "UpdateTeam"));
 		$this->AddAction("DeleteTeam", array($this, "DeleteTeam"));
-		$this->AddAction("AddPlayer", array($this, "AddPlayer"));
+		$this->AddAction("AddPlayer", array($this, "AddPlayer"));*/
 		$this->AddAction("Render", array($this, "Render"));
 		
 		$this->AddAction("Login", array($this, "Login"));
@@ -40,10 +40,11 @@ class LanManAPI extends API
 		$this->AddAction("ShowActions", array($this, "ShowActions"), true);
 		
 		// New stuff for new style
-		
 		$this->AddAction("WizardStageConfig", array($this, "WizardStageConfig"));
 		$this->AddAction("WizardGameConfig", array($this, "WizardGameConfig"));
 		$this->AddAction("WizardValidate", array($this, "WizardValidate"));
+		$this->AddAction("WizardValidateTeam", array($this, "WizardValidateTeam"));
+		$this->AddAction("CreateWizarded", array($this, "CreateWizarded"));
 	}
 	
 	public function SetLanMan($LanMan)
@@ -552,6 +553,9 @@ class LanManAPI extends API
 	
 	public function WizardStageConfig()
 	{
+		if(!$this->LanMan->UserManager->Can("create_tournaments"))
+			throw new Exception("Bad auth key.");
+		
 		$type = ApiHelper::GetParam("type", true);
 
 		Stages::instance()->LoadStage($type);
@@ -567,6 +571,9 @@ class LanManAPI extends API
 	
 	public function WizardGameConfig()
 	{
+		if(!$this->LanMan->UserManager->Can("create_tournaments"))
+			throw new Exception("Bad auth key.");
+		
 		$type = ApiHelper::GetParam("game", true);
 		Games::instance()->LoadGame($type);
 		
@@ -578,45 +585,145 @@ class LanManAPI extends API
 		return null;
 	}
 	
-	public function WizardValidate()
+	public function WizardValidate($tab = null, $nTab = null)
 	{
-		$tab = ApiHelper::GetParam("tab", true);
+		if(!$this->LanMan->UserManager->Can("create_tournaments"))
+			throw new Exception("Bad auth key.");
+		
+		if($tab === null)
+			$tab = ApiHelper::GetParam("tab", true);
+		
+		if($nTab === null)
+			$nTab = ApiHelper::GetParam("nTab", true);
 		
 		// Validate types
-		if($tab == 0)
+		if($nTab - $tab == -1)
 		{
-			$type = ApiHelper::GetParam("type", true);
-			if(strlen($type) < 1 || Stages::instance()->LoadStage($type) == null)
-				throw new Exception("Bad Type selected.");
+			return array("result" => "Everything Ok");
 		}
-		else if($tab == 1)
+		else if($nTab - $tab != 1)
 		{
-			$tournamentName = ApiHelper::GetParam("tournamentName", true);
-			ApiHelper::StringMin($tournamentName, 4, "Tournament Name");
-			ApiHelper::StringMax($tournamentName, 32, "Tournament Name");
+			throw new Exception("Fill previous tabs before advancing.");
+		}
+		
+		while(true)
+		{
+			if($tab >= 0)
+			{
+				$type = ApiHelper::GetParam("type", true);
+				if(strlen($type) < 1 || Stages::instance()->LoadStage($type) == null)
+					throw new Exception("Bad Type selected.");
+			}
 			
-			$Game = ApiHelper::GetParam("Game", true);
-			ApiHelper::StringMin($Game, 2, "Game");
-			Games::instance()->LoadGame($Game);
-		}
-		else if($tab == 3)
-		{
-			$sConf = ApiHelper::GetParam("stage_args", true);
-			$type = ApiHelper::GetParam("type", true);
-			if(strlen($type) < 1 || Stages::instance()->LoadStage($type) == null)
-				throw new Exception("Bad Type selected.");
-			$type = $type . "Config";
-			$type::ValidateArguments($sConf);
-		}
-		else if($tab == 4)
-		{
-			$sConf = ApiHelper::GetParam("game_args", true);
-			$Game = ApiHelper::GetParam("Game", true);
-			ApiHelper::StringMin($Game, 2, "Game");
-			Games::instance()->LoadGame($Game);
-			$Game::ValidateArguments($sConf);
+			if($tab >= 1)
+			{
+				$tournamentName = ApiHelper::GetParam("tournamentName", true);
+				ApiHelper::StringMin($tournamentName, 4, "Tournament Name");
+				ApiHelper::StringMax($tournamentName, 32, "Tournament Name");
+				
+				$Game = ApiHelper::GetParam("Game", true);
+				ApiHelper::StringMin($Game, 2, "Game");
+				Games::instance()->LoadGame($Game);
+			}
+			
+			if($tab >= 3)
+			{
+				$sConf = ApiHelper::GetParam("stage_args", true);
+				$type = ApiHelper::GetParam("type", true);
+				if(strlen($type) < 1 || Stages::instance()->LoadStage($type) == null)
+					throw new Exception("Bad Type selected.");
+				$type = $type . "Config";
+				$type::ValidateArguments($sConf);
+			}
+			
+			if($tab >= 4)
+			{
+				$sConf = ApiHelper::GetParam("game_args", true);
+				$Game = ApiHelper::GetParam("Game", true);
+				ApiHelper::StringMin($Game, 2, "Game");
+				Games::instance()->LoadGame($Game);
+				$Game::ValidateArguments($sConf);
+			}
+			
+			if($tab >= 5)
+			{
+				$t_teams = ApiHelper::GetParam("t_teams", false, null, null);
+				
+				if($t_teams !== null)
+				{
+					foreach($t_teams as $k => $v)
+					{
+						$this->WizardValidateTeam($v);
+					}
+					
+					return array("result" => sizeof($t_teams) . " teams added!");
+				}
+				return array("result" => "No teams added!");
+			}
+			
+			break;
 		}
 		return array("result" => "Everything OK");
+	}
+	
+	public function WizardValidateTeam($teamVal=null)
+	{
+		if(!$this->LanMan->UserManager->Can("create_tournaments"))
+			throw new Exception("Bad auth key.");
+		
+		$teamName = $teamVal == null?ApiHelper::GetParam("team_name", true):$teamVal["name"];
+		ApiHelper::StringMin($teamName, 2, "team_name");
+		ApiHelper::StringMax($teamName, 32, "team_name");
+		
+		$teamAbbrevation = $teamVal == null?ApiHelper::GetParam("team_abbrevation", true):$teamVal["abbr"];
+		ApiHelper::StringMin($teamAbbrevation, 2, "team_abbrevation");
+		ApiHelper::StringMax($teamAbbrevation, 6, "team_abbrevation");
+		
+		$players = $teamVal == null?ApiHelper::GetParam("team_players", true, "array"):$teamVal["players"];
+		foreach($players as $k => $v)
+		{
+			ApiHelper::StringMin($v, 2, "PlayerName");
+			ApiHelper::StringMax($v, 14, "PlayerName");
+		}
+		
+		return array("result" => "Everything OK");
+	}
+	
+	public function CreateWizarded()
+	{
+		//type
+		//tournamentName
+		//Game
+		//stage_args
+		//game_args
+		//t_teams
+		
+		// Validate everything
+		$this->WizardValidate(5, 4);
+
+		// Since everything is validated already we dont need to do more checks...
+		$type = ApiHelper::GetParam("type", true);
+		$tournamentName = ApiHelper::GetParam("tournamentName", true);
+		$Game = ApiHelper::GetParam("Game", true);
+		$game_args = ApiHelper::GetParam("game_args", true);
+		$stage_args = ApiHelper::GetParam("stage_args", true);
+		$t_teams = ApiHelper::GetParam("t_teams", true);
+		
+		// Create teams...
+		$teams = array();
+		foreach($t_teams as $k => $v)
+		{
+			$ply = array();
+			foreach($v["players"] as $k2 => $v2)
+			{
+				$ply[] = new Player(0, $v2);
+			}
+			$teams[] = new Team(0, $v["name"], $v["abbr"], $ply);
+		}
+		
+		$tourney = new Tournament($tournamentName, $Game, STATUS_ADDED, $type, $teams, array(), $stage_args, $game_args);
+		$this->LanMan->Datamanager->tourneyTable->stdItems[] = $tourney;
+		return array("result" => "Tournament Created");	
 	}
 }
 

@@ -14,9 +14,11 @@
 	<label>Liikmed:</label>
 	
 		<input type="text" name="players[]" /><input type="button" value="+" class="newRow" />
-		<div class="ply lMargin"></div>
+		<div class="ply lMargin">asdasdasd</div>
 	
-		<input type="hidden" name="TournamentID" value="{$Tournament->ID}" /><br />
+		{if isset($Tournament)}
+			<input type="hidden" name="TournamentID" value="{$Tournament->ID}" /><br />
+		{/if}
 	{/if}
 	
 	<input class="lMargin" type="submit" value="Add Team" />

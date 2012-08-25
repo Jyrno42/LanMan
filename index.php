@@ -13,8 +13,8 @@ $LanMan = null;
 try 
 {
 	$LanMan = new BootStrap();
-	$LanMan->Strap();	
-		
+	$LanMan->Strap();
+	
 	$LanMan->Smarty->assign("TourneyManager", $LanMan->Datamanager);
 	$LanMan->Smarty->assign("UserManager", $LanMan->UserManager);
 	
@@ -60,7 +60,14 @@ try
 	}
 	else if($page == "twizard")
 	{
-		$LanMan->Smarty->assign("DisableRight", true);
+		if(!$LanMan->UserManager->Can("create_tournaments"))
+		{
+			throw new Exception("Pole piisavalt õigusi.");
+		}
+		else
+		{
+			$LanMan->Smarty->assign("DisableRight", true);
+		}
 	}
 	else if($page == "teams")
 	{

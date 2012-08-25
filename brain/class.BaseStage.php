@@ -33,6 +33,12 @@ abstract class BaseStageConfig
 	}
 	
 	abstract function FromConfigForm($vals);
+	abstract function ToStorage();
+}
+
+abstract class BaseStageRenderer
+{
+	// TODO: Create a class which provides render functionalities to tournamentrenderer for each stage :)
 }
 
 ?>

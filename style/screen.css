@@ -23,9 +23,19 @@ body
 	outline: 0px none currentColor; 
 }
 
+.clear
+{
+	clear: both;
+}
+
 ol, ul 
 { 
 	list-style: none outside none;
+}
+
+#teamList 
+{
+	list-style: decimal inside none;
 }
 
 .container
@@ -242,7 +252,7 @@ img {
 	height: 125px;
 }
 
-.h125 .leftCentered 
+.leftCentered 
 {
 	float: left;
 	padding-left: 5px;
@@ -253,16 +263,22 @@ img {
 {
 	line-height: 125px;
 }
-.h125 .rightCentered 
+
+
+
+.rightBox
 {
 	float: right;
-	height: 125px;
 	margin-top: -10px;
 	padding-right: 5px;
 	width: 560px;
 }
+.rightCentered 
+{
+	height: 125px;	
+}
 
-.h125 .rightCentered p 
+.rightCentered p 
 { 
 	background: url("img/formarrow0-25.png") 0% 50% no-repeat transparent;
 	display: block;
@@ -271,7 +287,8 @@ img {
 	padding-left: 15px;
 	width: 560px;
 }
-.h125 .rightCentered p span 
+
+.rightCentered p span
 {
 	font: normal normal 400 12px/20px Arial;
 	background: #AFE0D4;
@@ -280,5 +297,13 @@ img {
 	height: 80px;
 	line-height: 20px;
 	margin-top: 12px;
+	padding: 10px 20px;	
+}
+
+.bluebox
+{
+	border-radius: 3px;	
+	font: normal normal 400 12px/20px Arial;
+	background: #AFE0D4;
 	padding: 10px 20px;	
 }

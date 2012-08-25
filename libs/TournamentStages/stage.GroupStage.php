@@ -36,15 +36,15 @@ class GroupStage extends BaseStage
 	 */
 	public function GroupStage(Tournament $tournament)
 	{
-		if($tournament->maxTeams % $tournament->stageConfig->SIZE != 0)
+		if($tournament->stageConfig->maxTeams % $tournament->stageConfig->SIZE != 0)
 			throw new Exception("Tournament must have proper group sizes based on number of teams. Unequal group sizes not yet implemented!");
 			
-		$this->numGroups = $tournament->maxTeams / $tournament->stageConfig->SIZE;
+		$this->numGroups = $tournament->stageConfig->maxTeams / $tournament->stageConfig->SIZE;
 		$playoffteams = $tournament->stageConfig->ADVANCE * $this->numGroups;
 		
 		for($i = 0; $i < $this->numGroups; $i++)
 		{
-			$this->Groups[$i] = new Group($i, $tournament->maxTeams, $tournament);
+			$this->Groups[$i] = new Group($i, $tournament->stageConfig->maxTeams, $tournament);
 		}
 	}
 	
@@ -109,6 +109,7 @@ class GroupStageConfig extends BaseStageConfig
 	public $ADVANCE = 0;
 	public $WinPoints = 3;
 	public $TiePoints = 1;
+	public $maxTeams = 0;
 
 	public function  __wakeup()
 	{
@@ -155,10 +156,23 @@ class GroupStageConfig extends BaseStageConfig
 	
 	public function FromConfigForm($vals)
 	{
-		$this->SIZE = $vals[0];
-		$this->ADVANCE = $vals[1];
-		$this->WinPoints = $vals[2];
-		$this->TiePoints = $vals[3];
+		$this->maxTeams = $vals[0];
+		$this->SIZE = $vals[1];
+		$this->ADVANCE = $vals[2];
+		$this->WinPoints = $vals[3];
+		$this->TiePoints = $vals[4];
+	}
+
+
+	public function ToStorage()
+	{
+		return array(
+			$this->maxTeams,
+			$this->SIZE,
+			$this->ADVANCE,
+			$this->WinPoints,
+			$this->TiePoints,
+		);
 	}
 	
 	public static function GetNameForGroup($index)
@@ -177,17 +191,6 @@ class GroupStageConfig extends BaseStageConfig
 		{
 			return $index;
 		}
-	}
-
-	public function GroupStageConfig($groupSize, $groupAdvance, $wPoints=3, $tPoints=1)
-	{
-		if($groupSize <= $groupAdvance)
-			throw new Exception("Group cant be smaller or same size of the advancing teams.");
-
-		$this->SIZE = $groupSize;
-		$this->ADVANCE = $groupAdvance;
-		$this->WinPoints = $wPoints;
-		$this->TiePoints = $tPoints;
 	}
 }
 

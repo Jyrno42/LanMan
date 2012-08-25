@@ -11,6 +11,8 @@
 		<link rel="stylesheet" href="style/style.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="style/screen.css" type="text/css" media="screen" />
 		
+		<link rel="stylesheet" href="style/buttons.css" type="text/css" media="screen" />
+		
 		<link rel="stylesheet" href="style/jquery-ui-1.8.23.custom.css" type="text/css" media="screen" />
 		<script type="text/javascript" src="style/jquery-ui-1.8.23.custom.min.js"></script>
 		
@@ -19,10 +21,10 @@
 			    var max = 0;  
 			    $("label").each(function(){  
 			        if ($(this).width() > max)  
-			            max = $(this).width();     
+			            max = $(this).width() + 10;     
 			    });  
 			    $("label").width(max);
-			    $(".lMargin").css("marginLeft", max+10);
+			    $(".lMargin").css("marginLeft", max);
 			    
 			    $("select[name=Groups],#OtherTypeOptions input").change(
 			    	function()
@@ -87,12 +89,6 @@
 			    		$(this).parent("form").children("input[type=submit]").attr("disabled", "disabled");
 			    	}
 			    }); 
-			    
-			    $(".newRow").click(function(){
-			    
-			    	$(this).parent("form").children(".ply").append("<input type='text' name='players[]' /><br />");
-			    
-			    });
 			});
 		</script>
   

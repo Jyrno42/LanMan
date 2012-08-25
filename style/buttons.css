@@ -1,0 +1,763 @@
+@CHARSET "UTF-8";
+
+.button, 
+.button_16, 
+.button_24, 
+.button_32, 
+.button_48, 
+.button_64, 
+.button_72, 
+.button_96, 
+.button_128, 
+.button_256 
+{
+	border: 0px none transparent;
+	display: inline-block;
+	outline: none;
+}
+
+.button:active, 
+.button_16:active, 
+.button_24:active, 
+.button_32:active, 
+.button_48:active, 
+.button_64:active, 
+.button_72:active, 
+.button_96:active, 
+.button_128:active, 
+.button_256:active 
+{
+	position: relative;
+	top: 1px;
+}
+
+.button_16
+{
+	height: 16px;
+	width: 16px;
+}
+.button_24
+{
+	height: 24px;
+	width: 24px;
+}
+.button_32
+{
+	height: 32px;
+	width: 32px;
+}
+.button_48
+{
+	height: 48px;
+	width: 48px;
+}
+.button_64
+{
+	height: 64px;
+	width: 64px;
+}
+.button_72
+{
+	height: 72px;
+	width: 72px;
+}
+.button_96
+{
+	height: 96px;
+	width: 96px;
+}
+.button_128
+{
+	height: 128px;
+	width: 128px;
+}
+.button_256
+{
+	height: 256px;
+	width: 256px;
+}
+
+/**
+ * Specific buttons
+ */
+ 
+.add
+{
+	background: url(icons/PNG/Button-Add-icon.png) no-repeat;
+}
+.button_16.add
+{
+	background: url(icons/16x16/Button-Add-icon.png) no-repeat;
+}
+.button_24.add
+{
+	background: url(icons/24x24/Button-Add-icon.png) no-repeat;
+}
+.button_32.add
+{
+	background: url(icons/32x32/Button-Add-icon.png) no-repeat;
+}
+.button_48.add
+{
+	background: url(icons/48x48/Button-Add-icon.png) no-repeat;
+}
+.button_64.add
+{
+	background: url(icons/64x64/Button-Add-icon.png) no-repeat;
+}
+.button_72.add
+{
+	background: url(icons/72x72/Button-Add-icon.png) no-repeat;
+}
+.button_96.add
+{
+	background: url(icons/96x96/Button-Add-icon.png) no-repeat;
+}
+.button_128.add
+{
+	background: url(icons/128x128/Button-Add-icon.png) no-repeat;
+}
+.button_256.add
+{
+	background: url(icons/256x256/Button-Add-icon.png) no-repeat;
+}
+.cancel
+{
+	background: url(icons/PNG/Button-Cancel-icon.png) no-repeat;
+}
+.button_16.cancel
+{
+	background: url(icons/16x16/Button-Cancel-icon.png) no-repeat;
+}
+.button_24.cancel
+{
+	background: url(icons/24x24/Button-Cancel-icon.png) no-repeat;
+}
+.button_32.cancel
+{
+	background: url(icons/32x32/Button-Cancel-icon.png) no-repeat;
+}
+.button_48.cancel
+{
+	background: url(icons/48x48/Button-Cancel-icon.png) no-repeat;
+}
+.button_64.cancel
+{
+	background: url(icons/64x64/Button-Cancel-icon.png) no-repeat;
+}
+.button_72.cancel
+{
+	background: url(icons/72x72/Button-Cancel-icon.png) no-repeat;
+}
+.button_96.cancel
+{
+	background: url(icons/96x96/Button-Cancel-icon.png) no-repeat;
+}
+.button_128.cancel
+{
+	background: url(icons/128x128/Button-Cancel-icon.png) no-repeat;
+}
+.button_256.cancel
+{
+	background: url(icons/256x256/Button-Cancel-icon.png) no-repeat;
+}
+.close
+{
+	background: url(icons/PNG/Button-Close-icon.png) no-repeat;
+}
+.button_16.close
+{
+	background: url(icons/16x16/Button-Close-icon.png) no-repeat;
+}
+.button_24.close
+{
+	background: url(icons/24x24/Button-Close-icon.png) no-repeat;
+}
+.button_32.close
+{
+	background: url(icons/32x32/Button-Close-icon.png) no-repeat;
+}
+.button_48.close
+{
+	background: url(icons/48x48/Button-Close-icon.png) no-repeat;
+}
+.button_64.close
+{
+	background: url(icons/64x64/Button-Close-icon.png) no-repeat;
+}
+.button_72.close
+{
+	background: url(icons/72x72/Button-Close-icon.png) no-repeat;
+}
+.button_96.close
+{
+	background: url(icons/96x96/Button-Close-icon.png) no-repeat;
+}
+.button_128.close
+{
+	background: url(icons/128x128/Button-Close-icon.png) no-repeat;
+}
+.button_256.close
+{
+	background: url(icons/256x256/Button-Close-icon.png) no-repeat;
+}
+.delete
+{
+	background: url(icons/PNG/Button-Delete-icon.png) no-repeat;
+}
+.button_16.delete
+{
+	background: url(icons/16x16/Button-Delete-icon.png) no-repeat;
+}
+.button_24.delete
+{
+	background: url(icons/24x24/Button-Delete-icon.png) no-repeat;
+}
+.button_32.delete
+{
+	background: url(icons/32x32/Button-Delete-icon.png) no-repeat;
+}
+.button_48.delete
+{
+	background: url(icons/48x48/Button-Delete-icon.png) no-repeat;
+}
+.button_64.delete
+{
+	background: url(icons/64x64/Button-Delete-icon.png) no-repeat;
+}
+.button_72.delete
+{
+	background: url(icons/72x72/Button-Delete-icon.png) no-repeat;
+}
+.button_96.delete
+{
+	background: url(icons/96x96/Button-Delete-icon.png) no-repeat;
+}
+.button_128.delete
+{
+	background: url(icons/128x128/Button-Delete-icon.png) no-repeat;
+}
+.button_256.delete
+{
+	background: url(icons/256x256/Button-Delete-icon.png) no-repeat;
+}
+.fast-forward
+{
+	background: url(icons/PNG/Button-Fast-forward-icon.png) no-repeat;
+}
+.button_16.fast-forward
+{
+	background: url(icons/16x16/Button-Fast-forward-icon.png) no-repeat;
+}
+.button_24.fast-forward
+{
+	background: url(icons/24x24/Button-Fast-forward-icon.png) no-repeat;
+}
+.button_32.fast-forward
+{
+	background: url(icons/32x32/Button-Fast-forward-icon.png) no-repeat;
+}
+.button_48.fast-forward
+{
+	background: url(icons/48x48/Button-Fast-forward-icon.png) no-repeat;
+}
+.button_64.fast-forward
+{
+	background: url(icons/64x64/Button-Fast-forward-icon.png) no-repeat;
+}
+.button_72.fast-forward
+{
+	background: url(icons/72x72/Button-Fast-forward-icon.png) no-repeat;
+}
+.button_96.fast-forward
+{
+	background: url(icons/96x96/Button-Fast-forward-icon.png) no-repeat;
+}
+.button_128.fast-forward
+{
+	background: url(icons/128x128/Button-Fast-forward-icon.png) no-repeat;
+}
+.button_256.fast-forward
+{
+	background: url(icons/256x256/Button-Fast-forward-icon.png) no-repeat;
+}
+.first
+{
+	background: url(icons/PNG/Button-First-icon.png) no-repeat;
+}
+.button_16.first
+{
+	background: url(icons/16x16/Button-First-icon.png) no-repeat;
+}
+.button_24.first
+{
+	background: url(icons/24x24/Button-First-icon.png) no-repeat;
+}
+.button_32.first
+{
+	background: url(icons/32x32/Button-First-icon.png) no-repeat;
+}
+.button_48.first
+{
+	background: url(icons/48x48/Button-First-icon.png) no-repeat;
+}
+.button_64.first
+{
+	background: url(icons/64x64/Button-First-icon.png) no-repeat;
+}
+.button_72.first
+{
+	background: url(icons/72x72/Button-First-icon.png) no-repeat;
+}
+.button_96.first
+{
+	background: url(icons/96x96/Button-First-icon.png) no-repeat;
+}
+.button_128.first
+{
+	background: url(icons/128x128/Button-First-icon.png) no-repeat;
+}
+.button_256.first
+{
+	background: url(icons/256x256/Button-First-icon.png) no-repeat;
+}
+.help
+{
+	background: url(icons/PNG/Button-Help-icon.png) no-repeat;
+}
+.button_16.help
+{
+	background: url(icons/16x16/Button-Help-icon.png) no-repeat;
+}
+.button_24.help
+{
+	background: url(icons/24x24/Button-Help-icon.png) no-repeat;
+}
+.button_32.help
+{
+	background: url(icons/32x32/Button-Help-icon.png) no-repeat;
+}
+.button_48.help
+{
+	background: url(icons/48x48/Button-Help-icon.png) no-repeat;
+}
+.button_64.help
+{
+	background: url(icons/64x64/Button-Help-icon.png) no-repeat;
+}
+.button_72.help
+{
+	background: url(icons/72x72/Button-Help-icon.png) no-repeat;
+}
+.button_96.help
+{
+	background: url(icons/96x96/Button-Help-icon.png) no-repeat;
+}
+.button_128.help
+{
+	background: url(icons/128x128/Button-Help-icon.png) no-repeat;
+}
+.button_256.help
+{
+	background: url(icons/256x256/Button-Help-icon.png) no-repeat;
+}
+.info
+{
+	background: url(icons/PNG/Button-Info-icon.png) no-repeat;
+}
+.button_16.info
+{
+	background: url(icons/16x16/Button-Info-icon.png) no-repeat;
+}
+.button_24.info
+{
+	background: url(icons/24x24/Button-Info-icon.png) no-repeat;
+}
+.button_32.info
+{
+	background: url(icons/32x32/Button-Info-icon.png) no-repeat;
+}
+.button_48.info
+{
+	background: url(icons/48x48/Button-Info-icon.png) no-repeat;
+}
+.button_64.info
+{
+	background: url(icons/64x64/Button-Info-icon.png) no-repeat;
+}
+.button_72.info
+{
+	background: url(icons/72x72/Button-Info-icon.png) no-repeat;
+}
+.button_96.info
+{
+	background: url(icons/96x96/Button-Info-icon.png) no-repeat;
+}
+.button_128.info
+{
+	background: url(icons/128x128/Button-Info-icon.png) no-repeat;
+}
+.button_256.info
+{
+	background: url(icons/256x256/Button-Info-icon.png) no-repeat;
+}
+.last
+{
+	background: url(icons/PNG/Button-Last-icon.png) no-repeat;
+}
+.button_16.last
+{
+	background: url(icons/16x16/Button-Last-icon.png) no-repeat;
+}
+.button_24.last
+{
+	background: url(icons/24x24/Button-Last-icon.png) no-repeat;
+}
+.button_32.last
+{
+	background: url(icons/32x32/Button-Last-icon.png) no-repeat;
+}
+.button_48.last
+{
+	background: url(icons/48x48/Button-Last-icon.png) no-repeat;
+}
+.button_64.last
+{
+	background: url(icons/64x64/Button-Last-icon.png) no-repeat;
+}
+.button_72.last
+{
+	background: url(icons/72x72/Button-Last-icon.png) no-repeat;
+}
+.button_96.last
+{
+	background: url(icons/96x96/Button-Last-icon.png) no-repeat;
+}
+.button_128.last
+{
+	background: url(icons/128x128/Button-Last-icon.png) no-repeat;
+}
+.button_256.last
+{
+	background: url(icons/256x256/Button-Last-icon.png) no-repeat;
+}
+.next
+{
+	background: url(icons/PNG/Button-Next-icon.png) no-repeat;
+}
+.button_16.next
+{
+	background: url(icons/16x16/Button-Next-icon.png) no-repeat;
+}
+.button_24.next
+{
+	background: url(icons/24x24/Button-Next-icon.png) no-repeat;
+}
+.button_32.next
+{
+	background: url(icons/32x32/Button-Next-icon.png) no-repeat;
+}
+.button_48.next
+{
+	background: url(icons/48x48/Button-Next-icon.png) no-repeat;
+}
+.button_64.next
+{
+	background: url(icons/64x64/Button-Next-icon.png) no-repeat;
+}
+.button_72.next
+{
+	background: url(icons/72x72/Button-Next-icon.png) no-repeat;
+}
+.button_96.next
+{
+	background: url(icons/96x96/Button-Next-icon.png) no-repeat;
+}
+.button_128.next
+{
+	background: url(icons/128x128/Button-Next-icon.png) no-repeat;
+}
+.button_256.next
+{
+	background: url(icons/256x256/Button-Next-icon.png) no-repeat;
+}
+.pause
+{
+	background: url(icons/PNG/Button-Pause-icon.png) no-repeat;
+}
+.button_16.pause
+{
+	background: url(icons/16x16/Button-Pause-icon.png) no-repeat;
+}
+.button_24.pause
+{
+	background: url(icons/24x24/Button-Pause-icon.png) no-repeat;
+}
+.button_32.pause
+{
+	background: url(icons/32x32/Button-Pause-icon.png) no-repeat;
+}
+.button_48.pause
+{
+	background: url(icons/48x48/Button-Pause-icon.png) no-repeat;
+}
+.button_64.pause
+{
+	background: url(icons/64x64/Button-Pause-icon.png) no-repeat;
+}
+.button_72.pause
+{
+	background: url(icons/72x72/Button-Pause-icon.png) no-repeat;
+}
+.button_96.pause
+{
+	background: url(icons/96x96/Button-Pause-icon.png) no-repeat;
+}
+.button_128.pause
+{
+	background: url(icons/128x128/Button-Pause-icon.png) no-repeat;
+}
+.button_256.pause
+{
+	background: url(icons/256x256/Button-Pause-icon.png) no-repeat;
+}
+.play
+{
+	background: url(icons/PNG/Button-Play-icon.png) no-repeat;
+}
+.button_16.play
+{
+	background: url(icons/16x16/Button-Play-icon.png) no-repeat;
+}
+.button_24.play
+{
+	background: url(icons/24x24/Button-Play-icon.png) no-repeat;
+}
+.button_32.play
+{
+	background: url(icons/32x32/Button-Play-icon.png) no-repeat;
+}
+.button_48.play
+{
+	background: url(icons/48x48/Button-Play-icon.png) no-repeat;
+}
+.button_64.play
+{
+	background: url(icons/64x64/Button-Play-icon.png) no-repeat;
+}
+.button_72.play
+{
+	background: url(icons/72x72/Button-Play-icon.png) no-repeat;
+}
+.button_96.play
+{
+	background: url(icons/96x96/Button-Play-icon.png) no-repeat;
+}
+.button_128.play
+{
+	background: url(icons/128x128/Button-Play-icon.png) no-repeat;
+}
+.button_256.play
+{
+	background: url(icons/256x256/Button-Play-icon.png) no-repeat;
+}
+.previous
+{
+	background: url(icons/PNG/Button-Previous-icon.png) no-repeat;
+}
+.button_16.previous
+{
+	background: url(icons/16x16/Button-Previous-icon.png) no-repeat;
+}
+.button_24.previous
+{
+	background: url(icons/24x24/Button-Previous-icon.png) no-repeat;
+}
+.button_32.previous
+{
+	background: url(icons/32x32/Button-Previous-icon.png) no-repeat;
+}
+.button_48.previous
+{
+	background: url(icons/48x48/Button-Previous-icon.png) no-repeat;
+}
+.button_64.previous
+{
+	background: url(icons/64x64/Button-Previous-icon.png) no-repeat;
+}
+.button_72.previous
+{
+	background: url(icons/72x72/Button-Previous-icon.png) no-repeat;
+}
+.button_96.previous
+{
+	background: url(icons/96x96/Button-Previous-icon.png) no-repeat;
+}
+.button_128.previous
+{
+	background: url(icons/128x128/Button-Previous-icon.png) no-repeat;
+}
+.button_256.previous
+{
+	background: url(icons/256x256/Button-Previous-icon.png) no-repeat;
+}
+.refresh
+{
+	background: url(icons/PNG/Button-Refresh-icon.png) no-repeat;
+}
+.button_16.refresh
+{
+	background: url(icons/16x16/Button-Refresh-icon.png) no-repeat;
+}
+.button_24.refresh
+{
+	background: url(icons/24x24/Button-Refresh-icon.png) no-repeat;
+}
+.button_32.refresh
+{
+	background: url(icons/32x32/Button-Refresh-icon.png) no-repeat;
+}
+.button_48.refresh
+{
+	background: url(icons/48x48/Button-Refresh-icon.png) no-repeat;
+}
+.button_64.refresh
+{
+	background: url(icons/64x64/Button-Refresh-icon.png) no-repeat;
+}
+.button_72.refresh
+{
+	background: url(icons/72x72/Button-Refresh-icon.png) no-repeat;
+}
+.button_96.refresh
+{
+	background: url(icons/96x96/Button-Refresh-icon.png) no-repeat;
+}
+.button_128.refresh
+{
+	background: url(icons/128x128/Button-Refresh-icon.png) no-repeat;
+}
+.button_256.refresh
+{
+	background: url(icons/256x256/Button-Refresh-icon.png) no-repeat;
+}
+.reload
+{
+	background: url(icons/PNG/Button-Reload-icon.png) no-repeat;
+}
+.button_16.reload
+{
+	background: url(icons/16x16/Button-Reload-icon.png) no-repeat;
+}
+.button_24.reload
+{
+	background: url(icons/24x24/Button-Reload-icon.png) no-repeat;
+}
+.button_32.reload
+{
+	background: url(icons/32x32/Button-Reload-icon.png) no-repeat;
+}
+.button_48.reload
+{
+	background: url(icons/48x48/Button-Reload-icon.png) no-repeat;
+}
+.button_64.reload
+{
+	background: url(icons/64x64/Button-Reload-icon.png) no-repeat;
+}
+.button_72.reload
+{
+	background: url(icons/72x72/Button-Reload-icon.png) no-repeat;
+}
+.button_96.reload
+{
+	background: url(icons/96x96/Button-Reload-icon.png) no-repeat;
+}
+.button_128.reload
+{
+	background: url(icons/128x128/Button-Reload-icon.png) no-repeat;
+}
+.button_256.reload
+{
+	background: url(icons/256x256/Button-Reload-icon.png) no-repeat;
+}
+.rewind
+{
+	background: url(icons/PNG/Button-Rewind-icon.png) no-repeat;
+}
+.button_16.rewind
+{
+	background: url(icons/16x16/Button-Rewind-icon.png) no-repeat;
+}
+.button_24.rewind
+{
+	background: url(icons/24x24/Button-Rewind-icon.png) no-repeat;
+}
+.button_32.rewind
+{
+	background: url(icons/32x32/Button-Rewind-icon.png) no-repeat;
+}
+.button_48.rewind
+{
+	background: url(icons/48x48/Button-Rewind-icon.png) no-repeat;
+}
+.button_64.rewind
+{
+	background: url(icons/64x64/Button-Rewind-icon.png) no-repeat;
+}
+.button_72.rewind
+{
+	background: url(icons/72x72/Button-Rewind-icon.png) no-repeat;
+}
+.button_96.rewind
+{
+	background: url(icons/96x96/Button-Rewind-icon.png) no-repeat;
+}
+.button_128.rewind
+{
+	background: url(icons/128x128/Button-Rewind-icon.png) no-repeat;
+}
+.button_256.rewind
+{
+	background: url(icons/256x256/Button-Rewind-icon.png) no-repeat;
+}
+.stop
+{
+	background: url(icons/PNG/Button-Stop-icon.png) no-repeat;
+}
+.button_16.stop
+{
+	background: url(icons/16x16/Button-Stop-icon.png) no-repeat;
+}
+.button_24.stop
+{
+	background: url(icons/24x24/Button-Stop-icon.png) no-repeat;
+}
+.button_32.stop
+{
+	background: url(icons/32x32/Button-Stop-icon.png) no-repeat;
+}
+.button_48.stop
+{
+	background: url(icons/48x48/Button-Stop-icon.png) no-repeat;
+}
+.button_64.stop
+{
+	background: url(icons/64x64/Button-Stop-icon.png) no-repeat;
+}
+.button_72.stop
+{
+	background: url(icons/72x72/Button-Stop-icon.png) no-repeat;
+}
+.button_96.stop
+{
+	background: url(icons/96x96/Button-Stop-icon.png) no-repeat;
+}
+.button_128.stop
+{
+	background: url(icons/128x128/Button-Stop-icon.png) no-repeat;
+}
+.button_256.stop
+{
+	background: url(icons/256x256/Button-Stop-icon.png) no-repeat;
+}
